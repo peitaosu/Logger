@@ -9,26 +9,23 @@ namespace Logger
 {
     public class LogEvent
     {
-        public LogEvent(DateTimeOffset timestamp, LogEventLevel level, Exception exception)
+        public LogEvent(DateTimeOffset timestamp, LogEventLevel level, string message, Exception exception = null)
         {
             Timestamp = timestamp;
             Level = level;
+            Message = message;
             Exception = exception;
         }
 
         public DateTimeOffset Timestamp { get; }
         public LogEventLevel Level { get; }
+        public string Message { get; }
         public Exception Exception { get; }
-
-        public string RenderMessage(IFormatProvider formatProvider = null)
-        {
-            var writer = new StringWriter(formatProvider);
-            return writer.ToString();
-        }
     }
 
     public enum LogEventLevel
     {
+        All,
         Verbose,
         Debug,
         Information,
