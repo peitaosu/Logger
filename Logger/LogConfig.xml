@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Logger xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="LogConfig"
+    xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <Appender Name="FileAppender" Type="FileAppender">
+        <File Value="Logger.log"/>
+        <AppendToFile Value="true" />
+        <Pattern Value="{0:yyyy/MM/dd H:mm:ss}: [{1}] {2}"/>
+    </Appender>
+    <Appender Name="ConsoleAppender" Type="ConsoleAppender">
+        <Pattern Value="{0:yyyy/MM/dd H:mm:ss}: [{1}] {2}"/>
+    </Appender>
+    <Appender Name="ColoredConsoleAppender" Type="ColoredConsoleAppender">
+        <Color Level="Error" ForeColor="Red"/>
+        <Color Level="Debug" ForeColor="Green"/>
+        <Color Level="Information" ForeColor="White"/>
+        <Pattern Value="{0:yyyy/MM/dd H:mm:ss}: [{1}] {2}"/>
+    </Appender>
+    <Root>
+        <MinLevel Value="All" />
+        <AppenderRef Ref="ColoredConsoleAppender" />
+        <AppenderRef Ref="FileAppender" />
+    </Root>
+</Logger>
