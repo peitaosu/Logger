@@ -33,6 +33,10 @@ namespace Logger
                 {
                     case "FileAppender":
                         FileLog = new LogAppenderConfig { IsEnabled = true, LogPath = appender.File.Path, LogAppendTo = (appender.File.AppendTo.Equals("true", StringComparison.OrdinalIgnoreCase)), LogPattern = appender.Pattern.Value, ColoredConsoleMapping = null };
+                        if (!FileLog.LogAppendTo)
+                        {
+                            using (fileWriter = new StreamWriter(FileLog.LogPath, false)) { }
+                        }
                         break;
                     case "ConsoleAppender":
                         ConsoleLog = new LogAppenderConfig { IsEnabled = true, LogPath = null, LogAppendTo = false, LogPattern = appender.Pattern.Value, ColoredConsoleMapping = null };
