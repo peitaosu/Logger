@@ -30,8 +30,6 @@ namespace Logger
             public string Type;
             [XmlElement("File")]
             public AppenderFile File;
-            [XmlElement("AppendToFile")]
-            public AppenderAppendToFile AppendToFile;
             [XmlElement("Pattern")]
             public AppenderPattern Pattern;
             [XmlElement("Color")]
@@ -41,13 +39,11 @@ namespace Logger
         public struct AppenderFile
         {
             [XmlAttribute]
-            public string Value;
-        }
-        public struct AppenderAppendToFile
-        {
+            public string Path;
             [XmlAttribute]
-            public string Value;
+            public string AppendTo;
         }
+
         public struct AppenderPattern
         {
             [XmlAttribute]

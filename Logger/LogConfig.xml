@@ -4,8 +4,7 @@
     xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
     <Appender Name="FileAppender" Type="FileAppender">
-        <File Value="Logger.log"/>
-        <AppendToFile Value="true" />
+        <File Path="Logger.log" AppendTo="true"/>
         <Pattern Value="{0:yyyy/MM/dd H:mm:ss}: [{1}] {2}"/>
     </Appender>
     <Appender Name="ConsoleAppender" Type="ConsoleAppender">

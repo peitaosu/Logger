@@ -32,10 +32,10 @@ namespace Logger
                 switch (appender.Type)
                 {
                     case "FileAppender":
-                        FileLog = new LogAppenderConfig { IsEnabled = true, LogPath = appender.File.Value, LogPattern = appender.Pattern.Value, ColoredConsoleMapping = null };
+                        FileLog = new LogAppenderConfig { IsEnabled = true, LogPath = appender.File.Path, LogAppendTo = (appender.File.AppendTo.Equals("true", StringComparison.OrdinalIgnoreCase)), LogPattern = appender.Pattern.Value, ColoredConsoleMapping = null };
                         break;
                     case "ConsoleAppender":
-                        ConsoleLog = new LogAppenderConfig { IsEnabled = true, LogPath = null, LogPattern = appender.Pattern.Value, ColoredConsoleMapping = null };
+                        ConsoleLog = new LogAppenderConfig { IsEnabled = true, LogPath = null, LogAppendTo = false, LogPattern = appender.Pattern.Value, ColoredConsoleMapping = null };
                         break;
                     case "ColoredConsoleAppender":
                         Dictionary<LogEventLevel, Dictionary<string, string>> levelColorMapping = new Dictionary<LogEventLevel, Dictionary<string, string>>();
@@ -46,7 +46,7 @@ namespace Logger
                             if (color.BackColor != null) colorMapping.Add("BackColor", color.BackColor);
                             levelColorMapping.Add((LogEventLevel)Enum.Parse(typeof(LogEventLevel), color.Level, true), colorMapping);
                         }
-                        ColoredConsoleLog = new LogAppenderConfig { IsEnabled = true, LogPath = null, LogPattern = appender.Pattern.Value, ColoredConsoleMapping = levelColorMapping };
+                        ColoredConsoleLog = new LogAppenderConfig { IsEnabled = true, LogPath = null, LogAppendTo = false, LogPattern = appender.Pattern.Value, ColoredConsoleMapping = levelColorMapping };
                         break;
                 }
             }
@@ -167,6 +167,7 @@ namespace Logger
     {
         public bool IsEnabled;
         public string LogPath;
+        public bool LogAppendTo;
         public string LogPattern;
         public Dictionary<LogEventLevel, Dictionary<string, string>> ColoredConsoleMapping;
     }
