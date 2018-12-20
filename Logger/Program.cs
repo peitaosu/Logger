@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,13 @@ namespace Logger
     {
         static void Main(string[] args)
         {
+            LogConfig logConfig = new LogConfig();
+            logConfig.Load(Path.Combine(Directory.GetCurrentDirectory(), "LogConfig.xml"));
+            Logger _log = new Logger(logConfig);
+            _log.Information("Information");
+            _log.Debug("Debug");
+            _log.Error("Error");
+            Console.Read();
         }
     }
 }
