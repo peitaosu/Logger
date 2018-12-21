@@ -13,7 +13,9 @@ namespace Logger
         private static readonly object syncObj = new object();
         private StreamWriter fileWriter;
 
-        public Logger(LogConfig logConfig)
+	public Logger(){}
+
+        public LoadConfig(LogConfig logConfig)
         {
             List<string> refedAppenders = new List<string>();
             foreach (LogConfig.RootAppenderRef appenderRef in logConfig.Root.RootAppenderRefs)
@@ -66,7 +68,7 @@ namespace Logger
                     {
                         if (null == _logger)
                         {
-                            return null;
+                            _logger = new Logger();
                         }
                     }
                 }

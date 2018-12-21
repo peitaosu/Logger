@@ -13,10 +13,10 @@ namespace Logger
         {
             LogConfig logConfig = new LogConfig();
             logConfig.Load(Path.Combine(Directory.GetCurrentDirectory(), "LogConfig.xml"));
-            Logger _log = new Logger(logConfig);
-            _log.Information("Information");
-            _log.Debug("Debug");
-            _log.Error("Error");
+            Logger.Instance.LoadConfig(logConfig);
+            Logger.Instance.Information("Information");
+            Logger.Instance.Debug("Debug");
+            Logger.Instance.Error("Error");
             Console.Read();
         }
     }
