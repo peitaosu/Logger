@@ -25,7 +25,6 @@ namespace Logger
 
     public enum LogEventLevel
     {
-        All,
         Verbose,
         Debug,
         Information,
