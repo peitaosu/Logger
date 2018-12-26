@@ -9,7 +9,13 @@ namespace Logger
 {
     public class Logger : ILogger
     {
+        public LogAppenderConfig FileLog = new LogAppenderConfig();
+        public LogAppenderConfig ConsoleLog = new LogAppenderConfig();
+        public LogAppenderConfig ColoredConsoleLog = new LogAppenderConfig();
+        public LogRootConfig RootConfig = new LogRootConfig();
+
         private static Logger _logger = null;
+        private static LogConfig _logConfig = null;
         private static readonly object syncObj = new object();
         private StreamWriter fileWriter;
 
@@ -17,6 +23,7 @@ namespace Logger
 
         public void LoadConfig(LogConfig logConfig)
         {
+            _logConfig = logConfig;
             List<string> refedAppenders = new List<string>();
             foreach (LogConfig.RootAppenderRef appenderRef in logConfig.Root.RootAppenderRefs)
             {
@@ -54,6 +61,8 @@ namespace Logger
                         }
                         ColoredConsoleLog = new LogAppenderConfig { IsEnabled = true, LogPath = null, LogAppendTo = false, LogPattern = appender.Pattern.Value, ColoredConsoleMapping = levelColorMapping };
                         break;
+                    default:
+                        break;
                 }
             }
         }
@@ -83,10 +92,6 @@ namespace Logger
             return true;
         }
 
-        public LogAppenderConfig FileLog { get; set; }
-        public LogAppenderConfig ConsoleLog { get; set; }
-        public LogAppenderConfig ColoredConsoleLog { get; set; }
-        public LogRootConfig RootConfig { get; set; }
         public void Write(LogEvent logEvent)
         {
             if (logEvent == null) return;
@@ -97,17 +102,17 @@ namespace Logger
                 {
                     fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Message);
                 }
-                if (logEvent.Exception != null && logEvent.Level == LogEventLevel.Debug)
+                if (logEvent.Exception != null)
                 {
-                    fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception.Message);
+                    fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception);
                 }
             }
             if (ConsoleLog.IsEnabled)
             {
                 Console.WriteLine(ConsoleLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Message);
-                if (logEvent.Exception != null && logEvent.Level == LogEventLevel.Debug)
+                if (logEvent.Exception != null)
                 {
-                    Console.WriteLine(ConsoleLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception.Message);
+                    Console.WriteLine(ConsoleLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception);
                 }
             }
             if (ColoredConsoleLog.IsEnabled)
@@ -124,9 +129,9 @@ namespace Logger
                     }
                 }
                 Console.WriteLine(ColoredConsoleLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Message);
-                if (logEvent.Exception != null && logEvent.Level == LogEventLevel.Debug)
+                if (logEvent.Exception != null)
                 {
-                    Console.WriteLine(ColoredConsoleLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception.Message);
+                    Console.WriteLine(ColoredConsoleLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception);
                 }
                 Console.ResetColor();
             }
@@ -145,7 +150,9 @@ namespace Logger
 
         public void Debug(string message, Exception exception = null)
         {
+#if DEBUG
             Write(LogEventLevel.Debug, message, exception);
+#endif
         }
 
         public void Information(string message, Exception exception = null)
@@ -169,18 +176,18 @@ namespace Logger
         }
     }
 
-    public struct LogAppenderConfig
+    public class LogAppenderConfig
     {
-        public bool IsEnabled;
-        public string LogPath;
-        public bool LogAppendTo;
-        public string LogPattern;
-        public Dictionary<LogEventLevel, Dictionary<string, string>> ColoredConsoleMapping;
+        public bool IsEnabled = false;
+        public string LogPath = null;
+        public bool LogAppendTo = true;
+        public string LogPattern = null;
+        public Dictionary<LogEventLevel, Dictionary<string, string>> ColoredConsoleMapping = null;
     }
 
-    public struct LogRootConfig
+    public class LogRootConfig
     {
-        public LogEventLevel MinimumLevel;
-        public List<string> RefedAppenders;
+        public LogEventLevel MinimumLevel = LogEventLevel.Verbose;
+        public List<string> RefedAppenders = null;
     }
 }
