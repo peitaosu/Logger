@@ -21,18 +21,33 @@ namespace Logger
 
         public Logger(){}
 
-        public void LoadConfig(LogConfig logConfig)
+        public void LoadConfig(string config=null)
         {
-            _logConfig = logConfig;
+            _logConfig = new LogConfig();
+            if(config == null)
+            {
+                try
+                {
+                    _logConfig.Load(Path.Combine(Directory.GetCurrentDirectory(), "LogConfig.xml"));
+                }
+                catch (FileNotFoundException)
+                {
+                    _logConfig.Load(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "LogConfig.xml"));
+                }
+            }
+            else
+            {
+                _logConfig.Load(config);
+            }
             List<string> refedAppenders = new List<string>();
-            foreach (LogConfig.RootAppenderRef appenderRef in logConfig.Root.RootAppenderRefs)
+            foreach (LogConfig.RootAppenderRef appenderRef in _logConfig.Root.RootAppenderRefs)
             {
                 refedAppenders.Add(appenderRef.Ref);
             }
-            LogEventLevel minimumLevel = (LogEventLevel)Enum.Parse(typeof(LogEventLevel), logConfig.Root.MinLevel.Value, true);
+            LogEventLevel minimumLevel = (LogEventLevel)Enum.Parse(typeof(LogEventLevel), _logConfig.Root.MinLevel.Value, true);
             RootConfig = new LogRootConfig { MinimumLevel = minimumLevel, RefedAppenders = refedAppenders };
 
-            foreach (LogConfig.LogAppender appender in logConfig.Appenders)
+            foreach (LogConfig.LogAppender appender in _logConfig.Appenders)
             {
                 if (!RootConfig.RefedAppenders.Contains(appender.Name))
                 {
@@ -78,6 +93,7 @@ namespace Logger
                         if (null == _logger)
                         {
                             _logger = new Logger();
+                            _logger.LoadConfig();
                         }
                     }
                 }

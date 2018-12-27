@@ -11,9 +11,7 @@ namespace Logger
     {
         static void Main(string[] args)
         {
-            LogConfig logConfig = new LogConfig();
-            logConfig.Load(Path.Combine(Directory.GetCurrentDirectory(), "LogConfig.xml"));
-            Logger.Instance.LoadConfig(logConfig);
+            Logger.Instance.LoadConfig();
             Logger.Instance.Information("Information");
             Logger.Instance.Debug("Debug");
             Logger.Instance.Error("Error");
