@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Logger
 {
-    [XmlRoot(ElementName = "Logger", Namespace = "http://schemas.microsoft.com/wix/2006/wi")]
+    [XmlRoot(ElementName = "Logger")]
     public class LogConfig
     {
         [XmlElement("Appender")]
