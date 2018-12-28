@@ -12,6 +12,7 @@ namespace Logger
         static void Main(string[] args)
         {
             Logger.Instance.LoadConfig();
+            Logger.Instance.FileLog.LogPath = "New.log";
             Logger.Instance.Information("Information");
             Logger.Instance.Debug("Debug");
             Logger.Instance.Error("Error");
