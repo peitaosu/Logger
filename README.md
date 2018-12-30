@@ -32,11 +32,12 @@ Customize your logger behavior by changing source code or only changing the `Log
 
 ```
 Logger.Instance.LoadConfig();
+// or load config with specific file
+// Logger.Instance.LoadConfig("LogConfig.xml");
 Logger.Instance.FileLog.LogPath = "New.log";
 Logger.Instance.Information("Information");
 Logger.Instance.Debug("Debug");
 Logger.Instance.Error("Error");
-
 ```
 
 
