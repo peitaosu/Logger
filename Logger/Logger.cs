@@ -117,10 +117,10 @@ namespace Logger
                 using (fileWriter = new StreamWriter(FileLog.LogPath, true))
                 {
                     fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Message);
-                }
-                if (logEvent.Exception != null)
-                {
-                    fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception);
+                    if (logEvent.Exception != null)
+                    {
+                        fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception);
+                    }
                 }
             }
             if (ConsoleLog.IsEnabled)
