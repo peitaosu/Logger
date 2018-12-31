@@ -16,8 +16,9 @@ namespace Logger
 
         private static Logger _logger = null;
         private static LogConfig _logConfig = null;
-        private static readonly object syncObj = new object();
-        private StreamWriter fileWriter;
+        private static readonly object _sync = new object();
+        private StreamWriter _fileWriter;
+        private string _defaultConfig = "LogConfig.xml";
 
         public Logger(){}
 
@@ -28,11 +29,11 @@ namespace Logger
             {
                 try
                 {
-                    _logConfig.Load(Path.Combine(Directory.GetCurrentDirectory(), "LogConfig.xml"));
+                    _logConfig.Load(Path.Combine(Directory.GetCurrentDirectory(), _defaultConfig));
                 }
                 catch (FileNotFoundException)
                 {
-                    _logConfig.Load(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "LogConfig.xml"));
+                    _logConfig.Load(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), _defaultConfig));
                 }
             }
             else
@@ -59,7 +60,7 @@ namespace Logger
                         FileLog = new LogAppenderConfig { IsEnabled = true, LogPath = appender.File.Path, LogAppendTo = (appender.File.AppendTo.Equals("true", StringComparison.OrdinalIgnoreCase)), LogPattern = appender.Pattern.Value, ColoredConsoleMapping = null };
                         if (!FileLog.LogAppendTo)
                         {
-                            using (fileWriter = new StreamWriter(FileLog.LogPath, false)) { }
+                            using (_fileWriter = new StreamWriter(FileLog.LogPath, false)) { }
                         }
                         break;
                     case "ConsoleAppender":
@@ -88,7 +89,7 @@ namespace Logger
             {
                 if (null == _logger)
                 {
-                    lock (syncObj)
+                    lock (_sync)
                     {
                         if (null == _logger)
                         {
@@ -114,12 +115,12 @@ namespace Logger
             if (!IsEnabled(logEvent.Level)) return;
             if (FileLog.IsEnabled)
             {
-                using (fileWriter = new StreamWriter(FileLog.LogPath, true))
+                using (_fileWriter = new StreamWriter(FileLog.LogPath, true))
                 {
-                    fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Message);
+                    _fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Message);
                     if (logEvent.Exception != null)
                     {
-                        fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception);
+                        _fileWriter.WriteLine(FileLog.LogPattern, logEvent.Timestamp, logEvent.Level, logEvent.Exception);
                     }
                 }
             }

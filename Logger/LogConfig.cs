@@ -84,23 +84,15 @@ namespace Logger
             XmlSerializer serializer = new XmlSerializer(GetType());
             LogConfig obj = Deserialize(serializer, filePath);
             if (null == obj || !CopyFrom(obj))
-                Debug.Assert(false, "Failed to load data from XML: " + filePath);
+                throw new Exception("Failed to load data from XML: " + filePath);
         }
 
         public LogConfig Deserialize(XmlSerializer serializer, string filePath)
         {
             LogConfig obj = null;
-            try
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
-                using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    obj = (LogConfig)serializer.Deserialize(stream);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error opening file: {0}", filePath);
-                Console.WriteLine(e.Message);
+                obj = (LogConfig)serializer.Deserialize(stream);
             }
             return obj;
         }
