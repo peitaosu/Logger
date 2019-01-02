@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9308FB7F-8DD8-4186-AFF1-183469C5AC23}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Logger</RootNamespace>
     <AssemblyName>Logger</AssemblyName>
@@ -47,7 +47,6 @@
     <Compile Include="LogConfig.cs" />
     <Compile Include="LogEvent.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
