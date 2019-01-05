@@ -25,12 +25,12 @@ namespace Logger
 
     public enum LogEventLevel
     {
-        Verbose,
-        Debug,
-        Information,
-        Warning,
-        Error,
-        Fatal
+        VERBO,
+        DEBUG,
+        INFOR,
+        WARNN,
+        ERROR,
+        FATAL
     }
 
 }

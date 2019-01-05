@@ -162,34 +162,34 @@ namespace Logger
 
         public void Verbose(string message, Exception exception = null)
         {
-            Write(LogEventLevel.Verbose, message, exception);
+            Write(LogEventLevel.VERBO, message, exception);
         }
 
         public void Debug(string message, Exception exception = null)
         {
 #if DEBUG
-            Write(LogEventLevel.Debug, message, exception);
+            Write(LogEventLevel.DEBUG, message, exception);
 #endif
         }
 
         public void Information(string message, Exception exception = null)
         {
-            Write(LogEventLevel.Information, message, exception);
+            Write(LogEventLevel.INFOR, message, exception);
         }
 
         public void Warning(string message, Exception exception = null)
         {
-            Write(LogEventLevel.Warning, message, exception);
+            Write(LogEventLevel.WARNN, message, exception);
         }
 
         public void Error(string message, Exception exception = null)
         {
-            Write(LogEventLevel.Error, message, exception);
+            Write(LogEventLevel.ERROR, message, exception);
         }
 
         public void Fatal(string message, Exception exception = null)
         {
-            Write(LogEventLevel.Fatal, message, exception);
+            Write(LogEventLevel.FATAL, message, exception);
         }
     }
 
@@ -204,7 +204,7 @@ namespace Logger
 
     public class LogRootConfig
     {
-        public LogEventLevel MinimumLevel = LogEventLevel.Verbose;
+        public LogEventLevel MinimumLevel = LogEventLevel.VERBO;
         public List<string> RefedAppenders = null;
     }
 }
