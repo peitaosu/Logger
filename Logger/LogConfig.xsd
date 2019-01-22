@@ -85,7 +85,15 @@
                             </xsd:element>
                         </xsd:sequence>
                         <xsd:attribute name="Name" type="xsd:string" use="required" />
-                        <xsd:attribute name="Type" type="xsd:string" use="required" />
+                        <xsd:attribute name="Type" use="required">
+                            <xsd:simpleType>
+                                <xsd:restriction base="xs:string">
+                                    <xsd:enumeration value="FileAppender"/>
+                                    <xsd:enumeration value="ConsoleAppender"/>
+                                    <xsd:enumeration value="ColoredConsoleAppender"/>
+                                </xsd:restriction>
+                            </xsd:simpleType>
+                        </xsd:attribute>
                     </xsd:complexType>
                 </xsd:element>
                 <xsd:element name="Root">
