@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Logger
 {
-    [XmlRoot(ElementName = "Logger")]
+    [XmlRoot(ElementName = "Logger", Namespace = "http://Logger/LogConfig.xsd")]
     public class LogConfig
     {
         [XmlElement("Appender")]

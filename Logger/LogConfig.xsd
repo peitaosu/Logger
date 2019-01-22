@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://Logger/LogConfig.xsd"
+           >
+    <xsd:element name="Logger">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Appender" minOccurs="1" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Color" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:attribute name="Level" use="required">
+                                        <xsd:simpleType>
+                                            <xsd:restriction base="xs:string">
+                                                <xsd:enumeration value="VERBO"/>
+                                                <xsd:enumeration value="DEBUG"/>
+                                                <xsd:enumeration value="INFOR"/>
+                                                <xsd:enumeration value="WARNN"/>
+                                                <xsd:enumeration value="ERROR"/>
+                                                <xsd:enumeration value="FATAL"/>
+                                            </xsd:restriction>
+                                        </xsd:simpleType>
+                                    </xsd:attribute>
+                                    <xsd:attribute name="ForeColor" use="optional">
+                                        <xsd:simpleType>
+                                            <xsd:restriction base="xs:string">
+                                                <xsd:enumeration value="Black"/>
+                                                <xsd:enumeration value="DarkBlue"/>
+                                                <xsd:enumeration value="DarkGreen"/>
+                                                <xsd:enumeration value="DarkCyan"/>
+                                                <xsd:enumeration value="DarkRed"/>
+                                                <xsd:enumeration value="DarkMagenta"/>
+                                                <xsd:enumeration value="DarkYellow"/>
+                                                <xsd:enumeration value="Gray"/>
+                                                <xsd:enumeration value="DarkGray"/>
+                                                <xsd:enumeration value="Blue"/>
+                                                <xsd:enumeration value="Green"/>
+                                                <xsd:enumeration value="Cyan"/>
+                                                <xsd:enumeration value="Red"/>
+                                                <xsd:enumeration value="Magenta"/>
+                                                <xsd:enumeration value="Yellow"/>
+                                                <xsd:enumeration value="White"/>
+                                            </xsd:restriction>
+                                        </xsd:simpleType>
+                                    </xsd:attribute>
+                                    <xsd:attribute name="BackColor" use="optional">
+                                        <xsd:simpleType>
+                                            <xsd:restriction base="xs:string">
+                                                <xsd:enumeration value="Black"/>
+                                                <xsd:enumeration value="DarkBlue"/>
+                                                <xsd:enumeration value="DarkGreen"/>
+                                                <xsd:enumeration value="DarkCyan"/>
+                                                <xsd:enumeration value="DarkRed"/>
+                                                <xsd:enumeration value="DarkMagenta"/>
+                                                <xsd:enumeration value="DarkYellow"/>
+                                                <xsd:enumeration value="Gray"/>
+                                                <xsd:enumeration value="DarkGray"/>
+                                                <xsd:enumeration value="Blue"/>
+                                                <xsd:enumeration value="Green"/>
+                                                <xsd:enumeration value="Cyan"/>
+                                                <xsd:enumeration value="Red"/>
+                                                <xsd:enumeration value="Magenta"/>
+                                                <xsd:enumeration value="Yellow"/>
+                                                <xsd:enumeration value="White"/>
+                                            </xsd:restriction>
+                                        </xsd:simpleType>
+                                    </xsd:attribute>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="File" minOccurs="0" maxOccurs="1">
+                                <xsd:complexType>
+                                    <xsd:attribute name="Path" type="xsd:string" use="required" />
+                                    <xsd:attribute name="AppendTo" type="xsd:boolean" use="required" />
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="Pattern" minOccurs="1" maxOccurs="1">
+                                <xsd:complexType>
+                                    <xsd:attribute name="Value" type="xsd:string" use="required" />
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                        <xsd:attribute name="Name" type="xsd:string" use="required" />
+                        <xsd:attribute name="Type" type="xsd:string" use="required" />
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="Root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="MinLevel" minOccurs="1" maxOccurs="1">
+                                <xsd:complexType>
+                                    <xsd:attribute name="Value" use="required">
+                                        <xsd:simpleType>
+                                            <xsd:restriction base="xs:string">
+                                                <xsd:enumeration value="VERBO"/>
+                                                <xsd:enumeration value="DEBUG"/>
+                                                <xsd:enumeration value="INFOR"/>
+                                                <xsd:enumeration value="WARNN"/>
+                                                <xsd:enumeration value="ERROR"/>
+                                                <xsd:enumeration value="FATAL"/>
+                                            </xsd:restriction>
+                                        </xsd:simpleType>
+                                    </xsd:attribute>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="AppenderRef" minOccurs="1" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:attribute name="Ref" type="xsd:string" use="required" />
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xs:schema>
