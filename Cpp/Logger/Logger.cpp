@@ -1,17 +1,63 @@
-// Logger.cpp : Defines the entry point for the console application.
-//
+#include "Logger.h"
 
-#include "stdafx.h"
-#include "LogEvent.h"
-
-int main()
+Logger::Logger()
 {
-
-    std::chrono::milliseconds time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-    LogEventLevel level = LogEventLevel::INFOR;
-    std::string log = "Hello World";
-    LogEventException exception("NULL", "NULL");
-    LogEvent event(time, level, log, exception);
-    return 0;
 }
+
+Logger::~Logger()
+{
+}
+
+void Logger::LoadConfig(std::string config) {
+
+}
+
+bool Logger::IsEnabled(LogEventLevel level) {
+    return true;
+}
+
+void Logger::Write(LogEvent logEvent) {
+    std::string log = "";
+    log += "[";
+    log += logEvent.GetTimestamp().count();
+    log += "] [";
+    log += logEvent.GetLevel();
+    log += "] ";
+    log += logEvent.GetMessage();
+    if (logEvent.GetException().GetSummary() != "") {
+        log += logEvent.GetException().GetSummary();
+    }
+    std::cout << log << std::endl;
+}
+
+void Logger::Write(LogEventLevel level, std::string message, LogEventException exception) {
+    if(IsEnabled(level))
+        Write(LogEvent(level, message, exception));
+}
+
+void Logger::Verbose(std::string message, LogEventException exception) {
+    Write(LogEventLevel::VERBO, message, exception);
+}
+
+void Logger::Debug(std::string message, LogEventException exception) {
+    Write(LogEventLevel::DEBUG, message, exception);
+}
+
+void Logger::Information(std::string message, LogEventException exception) {
+    Write(LogEventLevel::INFOR, message, exception);
+}
+
+void Logger::Warning(std::string message, LogEventException exception) {
+    Write(LogEventLevel::WARNN, message, exception);
+}
+
+void Logger::Error(std::string message, LogEventException exception) {
+    Write(LogEventLevel::ERROR, message, exception);
+}
+
+void Logger::Fatal(std::string message, LogEventException exception) {
+    Write(LogEventLevel::FATAL, message, exception);
+}
+
+Logger* Logger::_logger = nullptr;
 

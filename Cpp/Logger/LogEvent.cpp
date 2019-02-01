@@ -9,12 +9,42 @@ LogEventException::LogEventException(std::string summary, std::string detail)
     this->detail = detail;
 }
 
+std::string LogEventException::GetSummary() {
+    return this->summary;
+}
+
+std::string LogEventException::GetDetail() {
+    return this->detail;
+}
+
+
 LogEvent::LogEvent() {
 }
 
-LogEvent::LogEvent(std::chrono::milliseconds timestamp, LogEventLevel level, std::string message, LogEventException exception) {
-    this->timestamp = timestamp;
+LogEvent::LogEvent(LogEventLevel level, std::string message) {
+    this->timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+    this->level = level;
+    this->message = message;
+}
+
+LogEvent::LogEvent(LogEventLevel level, std::string message, LogEventException exception) {
+    this->timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
     this->level = level;
     this->message = message;
     this->exception = exception;
 }
+
+std::chrono::milliseconds LogEvent::GetTimestamp() {
+    return this->timestamp;
+}
+LogEventLevel LogEvent::GetLevel() {
+    return this->level;
+}
+std::string LogEvent::GetMessage() {
+    return this->message;
+}
+
+LogEventException LogEvent::GetException() {
+    return this->exception;
+}
+
