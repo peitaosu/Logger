@@ -1,7 +1,7 @@
 #include <iostream>
 #include <chrono>
 
-namespace Logger {
+namespace Logging {
     class LogEvent;
     class LogEventException;
     enum LogEventLevel;
@@ -22,6 +22,8 @@ class LogEventException
 public:
     LogEventException();
     LogEventException(std::string summary, std::string detail);
+    std::string GetSummary();
+    std::string GetDetail();
 
 private:
     std::string summary;
@@ -32,7 +34,12 @@ class LogEvent
 {
 public:
     LogEvent();
-    LogEvent(std::chrono::milliseconds timestamp, LogEventLevel level, std::string message, LogEventException exception);
+    LogEvent(LogEventLevel level, std::string message);
+    LogEvent(LogEventLevel level, std::string message, LogEventException exception);
+    std::chrono::milliseconds GetTimestamp();
+    LogEventLevel GetLevel();
+    std::string GetMessage();
+    LogEventException GetException();
 
 private:
     std::chrono::milliseconds timestamp;
