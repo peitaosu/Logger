@@ -28,6 +28,7 @@ public:
 
 private:
     static Logger* _logger;
+    LogEventLevel _minimalLevel = LogEventLevel::VERBO;
     std::string _defaultConfig = "LogConfig.xml";
 };
 
