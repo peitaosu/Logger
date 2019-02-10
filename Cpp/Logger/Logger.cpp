@@ -13,7 +13,11 @@ void Logger::LoadConfig(std::string config) {
 }
 
 bool Logger::IsEnabled(LogEventLevel level) {
-    return true;
+    if(level > this->_minimalLevel)
+    {
+        return true;
+    }
+    return false;
 }
 
 void Logger::Write(LogEvent logEvent) {
