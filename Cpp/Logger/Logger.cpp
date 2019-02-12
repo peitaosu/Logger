@@ -8,6 +8,10 @@ Logger::~Logger()
 {
 }
 
+void Logger::LoadConfig() {
+
+}
+
 void Logger::LoadConfig(std::string config) {
 
 }

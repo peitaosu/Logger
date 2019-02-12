@@ -15,6 +15,7 @@ public:
         if (!_logger) _logger = new Logger();
         return _logger;
     }
+    void LoadConfig();
     void LoadConfig(std::string config);
     bool IsEnabled(LogEventLevel level);
     void Write(LogEvent logEvent);
