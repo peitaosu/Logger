@@ -4,6 +4,8 @@ namespace Logging {
 }
 
 class LogConfig {
-
+	public:
+		LogConfig();
+		~LogConfig();
 }
 
