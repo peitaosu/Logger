@@ -7,5 +7,5 @@ class LogConfig {
 	public:
 		LogConfig();
 		~LogConfig();
-}
+};
 
