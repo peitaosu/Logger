@@ -11,10 +11,7 @@ class Logger
 public:
     Logger();
     ~Logger();
-    static Logger* Instance() {
-        if (!_logger) _logger = new Logger();
-        return _logger;
-    }
+    static Logger* Instance();
     void LoadConfig();
     void LoadConfig(std::string config);
     bool IsEnabled(LogEventLevel level);

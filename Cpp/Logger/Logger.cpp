@@ -8,6 +8,11 @@ Logger::~Logger()
 {
 }
 
+Logger* Logger::Instance() {
+    if (!_logger) _logger = new Logger();
+    return _logger;
+}
+
 void Logger::LoadConfig() {
 
 }
