@@ -13,15 +13,6 @@ namespace Logging {
     struct RootAppenderRef;
 }
 
-class LogConfig {
-	public:
-		LogConfig();
-        LogConfig(const char* config);
-		~LogConfig();
-    private:
-        std::string config = "LogConfig.xml";
-};
-
 struct AppenderFile
 {
     std::string Path;
@@ -63,6 +54,19 @@ struct LogRoot
 {
     RootMinLevel MinLevel;
     std::list<RootAppenderRef> RootAppenderRefs;
+};
+
+class LogConfig {
+public:
+    LogConfig();
+    LogConfig(const char* config);
+    ~LogConfig();
+    std::list<LogAppender> GetLogAppenders();
+    LogRoot GetLogRoot();
+private:
+    std::string config = "LogConfig.xml";
+    std::list<LogAppender> _logAppenders;
+    LogRoot _logRoot;
 };
 
 
