@@ -59,12 +59,12 @@ struct LogRoot
 class LogConfig {
 public:
     LogConfig();
-    LogConfig(const char* config);
+    LogConfig(std::string config);
     ~LogConfig();
     std::list<LogAppender> GetLogAppenders();
     LogRoot GetLogRoot();
 private:
-    std::string config = "LogConfig.xml";
+    std::string config;
     std::list<LogAppender> _logAppenders;
     LogRoot _logRoot;
 };

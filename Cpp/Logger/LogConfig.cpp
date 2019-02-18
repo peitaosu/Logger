@@ -2,9 +2,14 @@
 #include "tinyxml2.h"
 
 LogConfig::LogConfig(){
+    LogConfig("LogConfig.xml");
+}
+
+LogConfig::LogConfig(std::string config) {
+    this->config = config;
     tinyxml2::XMLDocument xml_doc;
     /* Get Current Working Directory
-    
+
     #include <Windows.h>
     #include <direct.h>
 
@@ -19,11 +24,6 @@ LogConfig::LogConfig(){
         return;
     }
     tinyxml2::XMLNode* root = xml_doc.FirstChild();
-}
-
-LogConfig::LogConfig(const char* config) {
-    this->config = config;
-    LogConfig();
 }
 
 LogConfig::~LogConfig(){
