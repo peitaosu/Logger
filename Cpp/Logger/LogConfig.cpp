@@ -55,7 +55,6 @@ LogConfig::LogConfig(std::string config) {
             }
         }
     }
-    std::cout << std::endl;
 }
 
 LogConfig::~LogConfig(){
