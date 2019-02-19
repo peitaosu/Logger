@@ -23,7 +23,39 @@ LogConfig::LogConfig(std::string config) {
         std::cout << "load xml file failed" << std::endl;
         return;
     }
-    tinyxml2::XMLNode* root = xml_doc.FirstChild();
+    tinyxml2::XMLNode* root = xml_doc.FirstChildElement("Logger");
+    for (tinyxml2::XMLElement* element = root->FirstChildElement(); element != NULL; element = element->NextSiblingElement())
+    {
+        if (strcmp(element->Name(), "Appender") == 0) {
+            LogAppender appender;
+            appender.Name = element->Attribute("Name");
+            appender.Type = element->Attribute("Type");
+            for (tinyxml2::XMLElement* appenderElement = element->FirstChildElement(); appenderElement != NULL; appenderElement = appenderElement->NextSiblingElement()) {
+                if (strcmp(appenderElement->Name(), "File") == 0) {
+                    appender.File = { appenderElement->Attribute("Path"), appenderElement->Attribute("AppendTo") };
+                }else if (strcmp(appenderElement->Name(), "Pattern") == 0) {
+                    appender.Pattern = { appenderElement->Attribute("Value") };
+                }else if (strcmp(appenderElement->Name(), "Color") == 0) {
+                    AppenderColor color;
+                    color.Level = appenderElement->Attribute("Level");
+                    if (appenderElement->Attribute("ForeColor")) color.ForeColor = appenderElement->Attribute("ForeColor");
+                    if (appenderElement->Attribute("BackColor")) color.ForeColor = appenderElement->Attribute("BackColor");
+                    appender.Colors.push_back(color);
+                }
+            }
+            _logAppenders.push_back(appender);
+        }
+        else if(strcmp(element->Name(), "Root") == 0){
+            for (tinyxml2::XMLElement* rootElement = element->FirstChildElement(); rootElement != NULL; rootElement = rootElement->NextSiblingElement()) {
+                if (strcmp(rootElement->Name(), "MinLevel") == 0) {
+                    _logRoot.MinLevel = { rootElement->Attribute("Value") };
+                }else if (strcmp(rootElement->Name(), "AppenderRef") == 0) {
+                    _logRoot.RootAppenderRefs.push_back({ rootElement->Attribute("Ref") });
+                }
+            }
+        }
+    }
+    std::cout << std::endl;
 }
 
 LogConfig::~LogConfig(){
