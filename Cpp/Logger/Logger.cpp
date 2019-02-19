@@ -14,11 +14,33 @@ Logger* Logger::Instance() {
 }
 
 void Logger::LoadConfig() {
-
+    LoadConfig(this->_defaultConfig);
 }
 
 void Logger::LoadConfig(std::string config) {
-
+    this->_config = LogConfig(config);
+    if (this->_config.GetLogRoot().MinLevel.Value == "VERBO") this->_minimalLevel = LogEventLevel::VERBO;
+    if (this->_config.GetLogRoot().MinLevel.Value == "DEBUG") this->_minimalLevel = LogEventLevel::DEBUG;
+    if (this->_config.GetLogRoot().MinLevel.Value == "INFOR") this->_minimalLevel = LogEventLevel::INFOR;
+    if (this->_config.GetLogRoot().MinLevel.Value == "WARNN") this->_minimalLevel = LogEventLevel::WARNN;
+    if (this->_config.GetLogRoot().MinLevel.Value == "ERROR") this->_minimalLevel = LogEventLevel::ERROR;
+    if (this->_config.GetLogRoot().MinLevel.Value == "FATAL") this->_minimalLevel = LogEventLevel::FATAL;
+    std::list<std::string> enabledAppender;
+    for (auto& ref : this->_config.GetLogRoot().RootAppenderRefs)
+    {
+        enabledAppender.push_back(ref.Ref);
+    }
+    for (auto& appender : this->_config.GetLogAppenders()) {
+        if (appender.Type == "FileAppender") {
+            this->_fileAppenderEnabled = std::find(enabledAppender.begin(), enabledAppender.end(), appender.Name) != enabledAppender.end();
+        }
+        else if (appender.Type == "ConsoleAppender") {
+            this->_consoleAppenderEnabled = std::find(enabledAppender.begin(), enabledAppender.end(), appender.Name) != enabledAppender.end();
+        }
+        else if (appender.Type == "ColoredConsoleAppender") {
+            this->_coloredConsoleAppenderEnabled = std::find(enabledAppender.begin(), enabledAppender.end(), appender.Name) != enabledAppender.end();
+        }
+    }
 }
 
 bool Logger::IsEnabled(LogEventLevel level) {

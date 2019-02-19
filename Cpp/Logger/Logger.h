@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "LogEvent.h"
+#include "LogConfig.h"
 
 namespace Logging {
     class Logger;
@@ -27,6 +28,10 @@ public:
 private:
     static Logger* _logger;
     LogEventLevel _minimalLevel = LogEventLevel::VERBO;
+    LogConfig _config;
     std::string _defaultConfig = "LogConfig.xml";
+    bool _fileAppenderEnabled = false;
+    bool _consoleAppenderEnabled = false;
+    bool _coloredConsoleAppenderEnabled = false;
 };
 
