@@ -25,22 +25,6 @@ void Logger::LoadConfig(std::string config) {
     if (this->_config.GetLogRoot().MinLevel.Value == "WARNN") this->_minimalLevel = LogEventLevel::WARNN;
     if (this->_config.GetLogRoot().MinLevel.Value == "ERROR") this->_minimalLevel = LogEventLevel::ERROR;
     if (this->_config.GetLogRoot().MinLevel.Value == "FATAL") this->_minimalLevel = LogEventLevel::FATAL;
-    std::list<std::string> enabledAppender;
-    for (auto& ref : this->_config.GetLogRoot().RootAppenderRefs)
-    {
-        enabledAppender.push_back(ref.Ref);
-    }
-    for (auto& appender : this->_config.GetLogAppenders()) {
-        if (appender.Type == "FileAppender") {
-            this->_fileAppenderEnabled = std::find(enabledAppender.begin(), enabledAppender.end(), appender.Name) != enabledAppender.end();
-        }
-        else if (appender.Type == "ConsoleAppender") {
-            this->_consoleAppenderEnabled = std::find(enabledAppender.begin(), enabledAppender.end(), appender.Name) != enabledAppender.end();
-        }
-        else if (appender.Type == "ColoredConsoleAppender") {
-            this->_coloredConsoleAppenderEnabled = std::find(enabledAppender.begin(), enabledAppender.end(), appender.Name) != enabledAppender.end();
-        }
-    }
 }
 
 bool Logger::IsEnabled(LogEventLevel level) {
@@ -52,17 +36,34 @@ bool Logger::IsEnabled(LogEventLevel level) {
 }
 
 void Logger::Write(LogEvent logEvent) {
-    std::string log = "";
-    log += "[";
-    log += logEvent.GetTimestamp().count();
-    log += "] [";
-    log += logEvent.GetLevel();
-    log += "] ";
-    log += logEvent.GetMessage();
-    if (logEvent.GetException().GetSummary() != "") {
-        log += logEvent.GetException().GetSummary();
+    for (auto& appender : this->_config.GetLogAppenders()) {
+        if (appender.Type == "FileAppender") {
+            if (appender.Enabled) {
+                //TODO
+            }
+        }
+        else if (appender.Type == "ConsoleAppender") {
+            if (appender.Enabled) {
+                //TODO
+                std::string log = "";
+                log += "[";
+                log += logEvent.GetTimestamp().count();
+                log += "] [";
+                log += logEvent.GetLevel();
+                log += "] ";
+                log += logEvent.GetMessage();
+                if (logEvent.GetException().GetSummary() != "") {
+                    log += logEvent.GetException().GetSummary();
+                }
+                std::cout << log << std::endl;
+            }
+        }
+        else if (appender.Type == "ColoredConsoleAppender") {
+            if (appender.Enabled) {
+                //TODO
+            }
+        }
     }
-    std::cout << log << std::endl;
 }
 
 void Logger::Write(LogEventLevel level, std::string message, LogEventException exception) {

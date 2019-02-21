@@ -28,6 +28,7 @@ LogConfig::LogConfig(std::string config) {
     {
         if (strcmp(element->Name(), "Appender") == 0) {
             LogAppender appender;
+            appender.Enabled = false;
             appender.Name = element->Attribute("Name");
             appender.Type = element->Attribute("Type");
             for (tinyxml2::XMLElement* appenderElement = element->FirstChildElement(); appenderElement != NULL; appenderElement = appenderElement->NextSiblingElement()) {
@@ -43,15 +44,22 @@ LogConfig::LogConfig(std::string config) {
                     appender.Colors.push_back(color);
                 }
             }
-            _logAppenders.push_back(appender);
+            this->_logAppenders.push_back(appender);
         }
         else if(strcmp(element->Name(), "Root") == 0){
             for (tinyxml2::XMLElement* rootElement = element->FirstChildElement(); rootElement != NULL; rootElement = rootElement->NextSiblingElement()) {
                 if (strcmp(rootElement->Name(), "MinLevel") == 0) {
-                    _logRoot.MinLevel = { rootElement->Attribute("Value") };
+                    this->_logRoot.MinLevel = { rootElement->Attribute("Value") };
                 }else if (strcmp(rootElement->Name(), "AppenderRef") == 0) {
-                    _logRoot.RootAppenderRefs.push_back({ rootElement->Attribute("Ref") });
+                    this->_logRoot.RootAppenderRefs.push_back({ rootElement->Attribute("Ref") });
                 }
+            }
+        }
+    }
+    for (auto& appender : this->_logAppenders) {
+        for (auto& ref : this->_logRoot.RootAppenderRefs) {
+            if (appender.Name.compare(ref.Ref) == 0) {
+                appender.Enabled = true;
             }
         }
     }

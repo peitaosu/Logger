@@ -30,8 +30,5 @@ private:
     LogEventLevel _minimalLevel = LogEventLevel::VERBO;
     LogConfig _config;
     std::string _defaultConfig = "LogConfig.xml";
-    bool _fileAppenderEnabled = false;
-    bool _consoleAppenderEnabled = false;
-    bool _coloredConsoleAppenderEnabled = false;
 };
 

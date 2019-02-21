@@ -33,6 +33,7 @@ struct AppenderColor
 
 struct LogAppender
 {
+    bool Enabled;
     std::string Name;
     std::string Type;
     AppenderFile File;
