@@ -115,29 +115,59 @@ void Logger::Write(LogEvent logEvent) {
     }
 }
 
-void Logger::Write(LogEventLevel level, std::string message, LogEventException exception) {
-    if(IsEnabled(level))
+void Logger::Write(LogEventLevel level, std::string message) {
+    LogEventException exception;
+    if (IsEnabled(level))
         Write(LogEvent(level, message, exception));
+}
+
+void Logger::Write(LogEventLevel level, std::string message, LogEventException exception) {
+    if (IsEnabled(level))
+        Write(LogEvent(level, message, exception));
+}
+
+void Logger::Verbose(std::string message) {
+    Write(LogEventLevel::VERBO, message);
 }
 
 void Logger::Verbose(std::string message, LogEventException exception) {
     Write(LogEventLevel::VERBO, message, exception);
 }
 
+void Logger::Debug(std::string message) {
+    Write(LogEventLevel::DEBUG, message);
+}
+
 void Logger::Debug(std::string message, LogEventException exception) {
     Write(LogEventLevel::DEBUG, message, exception);
+}
+
+void Logger::Information(std::string message) {
+    Write(LogEventLevel::INFOR, message);
 }
 
 void Logger::Information(std::string message, LogEventException exception) {
     Write(LogEventLevel::INFOR, message, exception);
 }
 
+void Logger::Warning(std::string message) {
+    Write(LogEventLevel::WARNN, message);
+}
+
 void Logger::Warning(std::string message, LogEventException exception) {
     Write(LogEventLevel::WARNN, message, exception);
 }
 
+void Logger::Error(std::string message) {
+    Write(LogEventLevel::ERROR, message);
+}
+
 void Logger::Error(std::string message, LogEventException exception) {
     Write(LogEventLevel::ERROR, message, exception);
+}
+
+void Logger::Fatal(std::string message) {
+    Write(LogEventLevel::FATAL, message);
 }
 
 void Logger::Fatal(std::string message, LogEventException exception) {

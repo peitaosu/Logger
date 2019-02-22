@@ -22,12 +22,19 @@ public:
     void LoadConfig(std::string config);
     bool IsEnabled(LogEventLevel level);
     void Write(LogEvent logEvent);
+    void Write(LogEventLevel level, std::string message);
     void Write(LogEventLevel level, std::string message, LogEventException exception);
+    void Verbose(std::string message);
     void Verbose(std::string message, LogEventException exception);
+    void Debug(std::string message);
     void Debug(std::string message, LogEventException exception);
+    void Information(std::string message);
     void Information(std::string message, LogEventException exception);
+    void Warning(std::string message);
     void Warning(std::string message, LogEventException exception);
+    void Error(std::string message);
     void Error(std::string message, LogEventException exception);
+    void Fatal(std::string message);
     void Fatal(std::string message, LogEventException exception);
 
 private:
