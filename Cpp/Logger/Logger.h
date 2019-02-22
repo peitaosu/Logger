@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "LogEvent.h"
 #include "LogConfig.h"
 

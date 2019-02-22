@@ -37,24 +37,31 @@ bool Logger::IsEnabled(LogEventLevel level) {
 
 void Logger::Write(LogEvent logEvent) {
     for (auto& appender : this->_config.GetLogAppenders()) {
+        std::string log = "";
+        log += "[";
+        log += logEvent.GetTimestamp().count();
+        log += "] [";
+        log += logEvent.GetLevel();
+        log += "] ";
+        log += logEvent.GetMessage();
+        if (logEvent.GetException().GetSummary() != "") {
+            log += logEvent.GetException().GetSummary();
+        }
         if (appender.Type == "FileAppender") {
             if (appender.Enabled) {
-                //TODO
+                int mode = std::ios::out;
+                if (appender.File.AppendTo == "true")
+                {
+                     mode += std::ios::app;
+                }
+                std::ofstream file(appender.File.Path, mode);
+                file << log + "\n";
+                file.close();
             }
         }
         else if (appender.Type == "ConsoleAppender") {
             if (appender.Enabled) {
                 //TODO
-                std::string log = "";
-                log += "[";
-                log += logEvent.GetTimestamp().count();
-                log += "] [";
-                log += logEvent.GetLevel();
-                log += "] ";
-                log += logEvent.GetMessage();
-                if (logEvent.GetException().GetSummary() != "") {
-                    log += logEvent.GetException().GetSummary();
-                }
                 std::cout << log << std::endl;
             }
         }
