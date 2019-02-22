@@ -1,6 +1,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
+#include <regex>
 #include "LogEvent.h"
 #include "LogConfig.h"
 

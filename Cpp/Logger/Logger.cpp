@@ -37,13 +37,61 @@ bool Logger::IsEnabled(LogEventLevel level) {
 
 void Logger::Write(LogEvent logEvent) {
     for (auto& appender : this->_config.GetLogAppenders()) {
-        std::string log = "";
-        log += "[";
-        log += logEvent.GetTimestamp().count();
-        log += "] [";
-        log += logEvent.GetLevel();
-        log += "] ";
-        log += logEvent.GetMessage();
+        std::string log;
+        std::string level;
+        switch (logEvent.GetLevel())
+        {
+        case LogEventLevel::VERBO:
+            level = "VERBO";
+            break;
+        case LogEventLevel::DEBUG:
+            level = "DEBUG";
+            break;
+        case LogEventLevel::INFOR:
+            level = "INFOR";
+            break;
+        case LogEventLevel::WARNN:
+            level = "WARNN";
+            break;
+        case LogEventLevel::ERROR:
+            level = "ERROR";
+            break;
+        case LogEventLevel::FATAL:
+            level = "FATAL";
+            break;
+        default:
+            level = "VERBO";
+            break;
+        }
+        std::string fmt = appender.Pattern.Value;
+        std::string time_fmt, level_fmt, log_fmt, whole_fmt;
+        std::regex pieces_regex(".*\\{(.*?)\\}.*\\{(.*?)\\}.*\\{(.*?)\\}.*");
+        std::smatch pieces_match;
+        bool found = std::regex_match(fmt, pieces_match, pieces_regex);
+        if (found) {
+            time_fmt = pieces_match[1].str();
+            if (time_fmt == "0") time_fmt = "%d:%m:%Y %H:%M:%S";
+            level_fmt = pieces_match[2].str();
+            if (level_fmt == "1") level_fmt = "%s";
+            log_fmt = pieces_match[3].str();
+            if (log_fmt == "2") log_fmt = "%s";
+            std::ostringstream time_string;
+            time_string << std::put_time(&logEvent.GetTimestamp(), time_fmt.c_str());
+            log = fmt;
+            size_t index = 0;
+            index = log.find("{" + pieces_match[1].str() + "}", index);
+            log.replace(index, pieces_match[1].str().size() + 2, time_string.str());
+            index = log.find("{" + pieces_match[2].str() + "}", index);
+            log.replace(index, pieces_match[2].str().size() + 2, level);
+            index = log.find("{" + pieces_match[3].str() + "}", index);
+            log.replace(index, pieces_match[3].str().size() + 2, logEvent.GetMessage());
+        }
+        else
+        {
+            std::ostringstream time_string;
+            time_string << std::put_time(&logEvent.GetTimestamp(), "%d:%m:%Y %H:%M:%S");
+            log = "[" + time_string.str() + "] [" + level + "] " + logEvent.GetMessage();
+        }
         if (logEvent.GetException().GetSummary() != "") {
             log += logEvent.GetException().GetSummary();
         }
@@ -68,6 +116,7 @@ void Logger::Write(LogEvent logEvent) {
         else if (appender.Type == "ColoredConsoleAppender") {
             if (appender.Enabled) {
                 //TODO
+                std::cout << log << std::endl;
             }
         }
     }
