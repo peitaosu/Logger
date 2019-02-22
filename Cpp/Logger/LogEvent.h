@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <iomanip>
 
 namespace Logging {
     class LogEvent;
@@ -36,13 +37,13 @@ public:
     LogEvent();
     LogEvent(LogEventLevel level, std::string message);
     LogEvent(LogEventLevel level, std::string message, LogEventException exception);
-    std::chrono::milliseconds GetTimestamp();
+    std::tm GetTimestamp();
     LogEventLevel GetLevel();
     std::string GetMessage();
     LogEventException GetException();
 
 private:
-    std::chrono::milliseconds timestamp;
+    std::tm timestamp;
     LogEventLevel level;
     std::string message;
     LogEventException exception;

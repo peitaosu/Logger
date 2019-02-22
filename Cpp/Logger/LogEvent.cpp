@@ -22,19 +22,23 @@ LogEvent::LogEvent() {
 }
 
 LogEvent::LogEvent(LogEventLevel level, std::string message) {
-    this->timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+    auto time = std::time(nullptr);
+    auto tm = *std::localtime(&time);
+    this->timestamp = tm;
     this->level = level;
     this->message = message;
 }
 
 LogEvent::LogEvent(LogEventLevel level, std::string message, LogEventException exception) {
-    this->timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+    auto time = std::time(nullptr);
+    auto tm = *std::localtime(&time);
+    this->timestamp = tm;
     this->level = level;
     this->message = message;
     this->exception = exception;
 }
 
-std::chrono::milliseconds LogEvent::GetTimestamp() {
+std::tm LogEvent::GetTimestamp() {
     return this->timestamp;
 }
 LogEventLevel LogEvent::GetLevel() {
