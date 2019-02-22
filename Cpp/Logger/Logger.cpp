@@ -37,6 +37,7 @@ bool Logger::IsEnabled(LogEventLevel level) {
 
 void Logger::Write(LogEvent logEvent) {
     for (auto& appender : this->_config.GetLogAppenders()) {
+        if (!appender.Enabled) continue;
         std::string log;
         std::string level;
         switch (logEvent.GetLevel())
@@ -70,7 +71,7 @@ void Logger::Write(LogEvent logEvent) {
         bool found = std::regex_match(fmt, pieces_match, pieces_regex);
         if (found) {
             time_fmt = pieces_match[1].str();
-            if (time_fmt == "0") time_fmt = "%d:%m:%Y %H:%M:%S";
+            if (time_fmt == "0") time_fmt = "%Y/%m/%d %H:%M:%S";
             level_fmt = pieces_match[2].str();
             if (level_fmt == "1") level_fmt = "%s";
             log_fmt = pieces_match[3].str();
@@ -89,35 +90,27 @@ void Logger::Write(LogEvent logEvent) {
         else
         {
             std::ostringstream time_string;
-            time_string << std::put_time(&logEvent.GetTimestamp(), "%d:%m:%Y %H:%M:%S");
+            time_string << std::put_time(&logEvent.GetTimestamp(), "%Y/%m/%d %H:%M:%S");
             log = "[" + time_string.str() + "] [" + level + "] " + logEvent.GetMessage();
         }
         if (logEvent.GetException().GetSummary() != "") {
             log += logEvent.GetException().GetSummary();
         }
         if (appender.Type == "FileAppender") {
-            if (appender.Enabled) {
-                int mode = std::ios::out;
-                if (appender.File.AppendTo == "true")
-                {
-                     mode += std::ios::app;
-                }
-                std::ofstream file(appender.File.Path, mode);
-                file << log + "\n";
-                file.close();
+            int mode = std::ios::out;
+            if (appender.File.AppendTo == "true")
+            {
+                    mode += std::ios::app;
             }
+            std::ofstream file(appender.File.Path, mode);
+            file << log + "\n";
+            file.close();
         }
         else if (appender.Type == "ConsoleAppender") {
-            if (appender.Enabled) {
-                //TODO
-                std::cout << log << std::endl;
-            }
+            std::cout << log << std::endl;
         }
         else if (appender.Type == "ColoredConsoleAppender") {
-            if (appender.Enabled) {
-                //TODO
-                std::cout << log << std::endl;
-            }
+            std::cout << log << std::endl;
         }
     }
 }
