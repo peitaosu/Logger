@@ -157,6 +157,9 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="LogConfig.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

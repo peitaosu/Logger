@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Logger xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://Logger/LogConfig.xsd" xsi:type="LogConfig"
+    >
+
+    <Appender Name="FileAppender" Type="FileAppender">
+        <File Path="Logger.log" AppendTo="true"/>
+        <Pattern Value="{%Y/%m/%d %H:%M:%S}: [{1}] {2}"/>
+    </Appender>
+    <Appender Name="ConsoleAppender" Type="ConsoleAppender">
+        <Pattern Value="{%Y/%m/%d %H:%M:%S}: [{1}] {2}"/>
+    </Appender>
+    <Root>
+        <MinLevel Value="VERBO" />
+        <AppenderRef Ref="ConsoleAppender" />
+        <AppenderRef Ref="FileAppender" />
+    </Root>
+</Logger>
