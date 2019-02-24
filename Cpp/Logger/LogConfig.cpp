@@ -8,19 +8,9 @@ LogConfig::LogConfig(){
 LogConfig::LogConfig(std::string config) {
     this->config = config;
     tinyxml2::XMLDocument xml_doc;
-    /* Get Current Working Directory
-
-    #include <Windows.h>
-    #include <direct.h>
-
-    char buff[FILENAME_MAX];
-    _getcwd(buff, FILENAME_MAX);
-    std::string PWD(buff);
-    std::string configFull = PWD + "\\" + this->config;
-    */
     if (xml_doc.LoadFile(this->config.c_str()) != 0)
     {
-        std::cout << "load xml file failed" << std::endl;
+        std::cout << "Failed to load data from XML: " << config.c_str() << std::endl;
         return;
     }
     tinyxml2::XMLNode* root = xml_doc.FirstChildElement("Logger");

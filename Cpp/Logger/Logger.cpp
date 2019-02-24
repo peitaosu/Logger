@@ -94,6 +94,7 @@ void Logger::Write(LogEvent logEvent) {
             log = "[" + time_string.str() + "] [" + level + "] " + logEvent.GetMessage();
         }
         if (logEvent.GetException().GetSummary() != "") {
+            log = log + "\n";
             log += logEvent.GetException().GetSummary();
         }
         if (appender.Type == "FileAppender") {
@@ -110,6 +111,7 @@ void Logger::Write(LogEvent logEvent) {
             std::cout << log << std::endl;
         }
         else if (appender.Type == "ColoredConsoleAppender") {
+            //TODO: to implement the colored console output
             std::cout << log << std::endl;
         }
     }
