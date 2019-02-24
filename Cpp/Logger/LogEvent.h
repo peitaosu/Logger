@@ -22,6 +22,7 @@ class LogEventException
 {
 public:
     LogEventException();
+    LogEventException(std::string summary);
     LogEventException(std::string summary, std::string detail);
     std::string GetSummary();
     std::string GetDetail();

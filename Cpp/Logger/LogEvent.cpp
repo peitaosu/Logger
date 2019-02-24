@@ -1,7 +1,12 @@
 #include "LogEvent.h"
 
 LogEventException::LogEventException() {
-};
+}
+
+LogEventException::LogEventException(std::string summary)
+{
+    this->summary = summary;
+}
 
 LogEventException::LogEventException(std::string summary, std::string detail)
 {
