@@ -1,5 +1,4 @@
 #include "LogConfig.h"
-#include "tinyxml2.h"
 
 LogConfig::LogConfig(){
     LogConfig("LogConfig.xml");

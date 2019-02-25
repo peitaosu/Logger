@@ -28,11 +28,8 @@ void Logger::LoadConfig(std::string config) {
 }
 
 bool Logger::IsEnabled(LogEventLevel level) {
-    if(level >= this->_minimalLevel)
-    {
-        return true;
-    }
-    return false;
+    if(level < this->_minimalLevel) return false;
+    return true;
 }
 
 void Logger::Write(LogEvent logEvent) {
@@ -68,8 +65,7 @@ void Logger::Write(LogEvent logEvent) {
         std::string time_fmt, level_fmt, log_fmt, whole_fmt;
         std::regex pieces_regex(".*\\{(.*?)\\}.*\\{(.*?)\\}.*\\{(.*?)\\}.*");
         std::smatch pieces_match;
-        bool found = std::regex_match(fmt, pieces_match, pieces_regex);
-        if (found) {
+        if (std::regex_match(fmt, pieces_match, pieces_regex)) {
             time_fmt = pieces_match[1].str();
             if (time_fmt == "0") time_fmt = "%Y/%m/%d %H:%M:%S";
             level_fmt = pieces_match[2].str();
@@ -91,7 +87,7 @@ void Logger::Write(LogEvent logEvent) {
         {
             std::ostringstream time_string;
             time_string << std::put_time(&logEvent.GetTimestamp(), "%Y/%m/%d %H:%M:%S");
-            log = "[" + time_string.str() + "] [" + level + "] " + logEvent.GetMessage();
+            log = time_string.str() + ": [" + level + "] " + logEvent.GetMessage();
         }
         if (logEvent.GetException().GetSummary() != "") {
             log = log + "\n";

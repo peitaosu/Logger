@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "Logger.h"
-#include <string>
-#include <Windows.h>
 
 int main()
 {

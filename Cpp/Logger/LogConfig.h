@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <list>
+#include "tinyxml2.h"
 
 namespace Logging {
     class LogConfig;
