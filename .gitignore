@@ -11,3 +11,5 @@
 # Visual C++
 *.VC.*
 *.vcxproj.filters
+*.vcxproj.user
+~*.vcxproj
