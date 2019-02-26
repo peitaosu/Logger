@@ -10,11 +10,11 @@ namespace Sample
     {
         static void Main(string[] args)
         {
-            Logger.Logger.Instance.LoadConfig();
-            Logger.Logger.Instance.FileLog.LogPath = "New.log";
-            Logger.Logger.Instance.Information("Information");
-            Logger.Logger.Instance.Debug("Debug");
-            Logger.Logger.Instance.Error("Error");
+            Logging.Logger.Instance.LoadConfig();
+            Logging.Logger.Instance.FileLog.LogPath = "New.log";
+            Logging.Logger.Instance.Information("Information");
+            Logging.Logger.Instance.Debug("Debug");
+            Logging.Logger.Instance.Error("Error");
             Console.Read();
         }
     }

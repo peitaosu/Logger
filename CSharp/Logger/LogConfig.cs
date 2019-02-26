@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Logger
+namespace Logging
 {
     [XmlRoot(ElementName = "Logger", Namespace = "http://Logger/LogConfig.xsd")]
     public class LogConfig
