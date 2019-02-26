@@ -15,6 +15,7 @@ Customize your logger behavior by changing source code or only changing the `Log
 <Appender Name="ConsoleAppender" Type="ConsoleAppender">
     <Pattern Value="{0:yyyy/MM/dd H:mm:ss}: [{1}] {2}"/>
 </Appender>
+<!-- ColoredConsoleAppender only available in C# -->
 <Appender Name="ColoredConsoleAppender" Type="ColoredConsoleAppender">
     <Color Level="ERROR" ForeColor="Red"/>
     <Color Level="DEBUG" ForeColor="Green"/>
@@ -28,16 +29,24 @@ Customize your logger behavior by changing source code or only changing the `Log
 </Root>
 ```
 
-## Example Code
+## Example Code (C#)
 
 ```
-Logger.Instance.LoadConfig();
+Logging.Instance.LoadConfig();
 // or load config with specific file
-// Logger.Instance.LoadConfig("LogConfig.xml");
-Logger.Instance.FileLog.LogPath = "New.log";
-Logger.Instance.Information("Information");
-Logger.Instance.Debug("Debug");
-Logger.Instance.Error("Error");
+// Logging.Instance.LoadConfig("LogConfig.xml");
+Logging.Instance.FileLog.LogPath = "New.log";
+Logging.Instance.Information("Information");
+Logging.Instance.Debug("Debug");
+Logging.Instance.Error("Error");
+```
+
+
+## Example Code (C++)
+
+```
+Logger::Instance()->LoadConfig();
+Logger::Instance()->Information("Information");
 ```
 
 
