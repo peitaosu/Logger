@@ -25,6 +25,15 @@ void Logger::LoadConfig(std::string config) {
     if (this->_config.GetLogRoot().MinLevel.Value == "WARNN") this->_minimalLevel = LogEventLevel::WARNN;
     if (this->_config.GetLogRoot().MinLevel.Value == "ERROR") this->_minimalLevel = LogEventLevel::ERROR;
     if (this->_config.GetLogRoot().MinLevel.Value == "FATAL") this->_minimalLevel = LogEventLevel::FATAL;
+    for (auto& appender : this->_config.GetLogAppenders()) {
+        if (appender.Type == "FileAppender" && appender.Enabled) {
+            this->_logPath = appender.File.Path;
+        }
+    }
+}
+
+void Logger::SetLogPath(std::string log) {
+    this->_logPath = log;
 }
 
 bool Logger::IsEnabled(LogEventLevel level) {
@@ -99,7 +108,7 @@ void Logger::Write(LogEvent logEvent) {
             {
                     mode += std::ios::app;
             }
-            std::ofstream file(appender.File.Path, mode);
+            std::ofstream file(this->_logPath, mode);
             file << log + "\n";
             file.close();
         }

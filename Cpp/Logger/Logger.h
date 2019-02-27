@@ -20,6 +20,7 @@ public:
     static Logger* Instance();
     void LoadConfig();
     void LoadConfig(std::string config);
+    void SetLogPath(std::string log);
     bool IsEnabled(LogEventLevel level);
     void Write(LogEvent logEvent);
     void Write(LogEventLevel level, std::string message);
@@ -42,5 +43,6 @@ private:
     LogEventLevel _minimalLevel = LogEventLevel::VERBO;
     LogConfig _config;
     std::string _defaultConfig = "LogConfig.xml";
+    std::string _logPath = "Logger.log";
 };
 
