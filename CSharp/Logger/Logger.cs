@@ -102,6 +102,11 @@ namespace Logging
             }
         }
 
+        public void SetLogPath(string log)
+        {
+            this.FileLog.LogPath = log;
+        }
+
         public bool IsEnabled(LogEventLevel level)
         {
             if ((int)level < (int)RootConfig.MinimumLevel)

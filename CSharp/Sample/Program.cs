@@ -11,7 +11,7 @@ namespace Sample
         static void Main(string[] args)
         {
             Logging.Logger.Instance.LoadConfig();
-            Logging.Logger.Instance.FileLog.LogPath = "New.log";
+            Logging.Logger.Instance.SetLogPath("New.log");
             Logging.Logger.Instance.Information("Information");
             Logging.Logger.Instance.Debug("Debug");
             Logging.Logger.Instance.Error("Error");
