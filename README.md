@@ -46,6 +46,7 @@ Logging.Instance.Error("Error");
 
 ```
 Logger::Instance()->LoadConfig();
+Logger::Instance()->SetLogPath("New.log");
 Logger::Instance()->Information("Information");
 ```
 
