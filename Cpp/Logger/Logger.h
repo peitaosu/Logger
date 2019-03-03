@@ -27,6 +27,7 @@ public:
     void LoadConfig();
     void LoadConfig(std::string config);
     void SetLogPath(std::string log);
+    void SetLogAppendTo(bool appendTo);
     bool IsEnabled(LogEventLevel level);
     void Write(LogEvent logEvent);
     void Write(LogEventLevel level, std::string message);
@@ -50,5 +51,6 @@ private:
     LogConfig _config;
     std::string _defaultConfig = "LogConfig.xml";
     std::string _logPath = "Logger.log";
+    bool _appendTo = true;
 };
 

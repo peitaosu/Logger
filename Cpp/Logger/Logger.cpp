@@ -34,12 +34,20 @@ void Logger::LoadConfig(std::string config) {
     for (auto& appender : this->_config.GetLogAppenders()) {
         if (appender.Type == "FileAppender" && appender.Enabled) {
             this->_logPath = appender.File.Path;
+            if (appender.File.AppendTo == "false") {
+                this->_appendTo = false;
+            }
         }
     }
 }
 
 void Logger::SetLogPath(std::string log) {
     this->_logPath = log;
+}
+
+void Logger::SetLogAppendTo(bool appendTo)
+{
+    this->_appendTo = appendTo;
 }
 
 bool Logger::IsEnabled(LogEventLevel level) {
@@ -110,7 +118,7 @@ void Logger::Write(LogEvent logEvent) {
         }
         if (appender.Type == "FileAppender") {
             int mode = std::ios::out;
-            if (appender.File.AppendTo == "true")
+            if (this->_appendTo)
             {
                     mode += std::ios::app;
             }

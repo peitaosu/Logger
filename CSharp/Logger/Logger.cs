@@ -107,6 +107,11 @@ namespace Logging
             this.FileLog.LogPath = log;
         }
 
+        public void SetLogAppendTo(bool appendTo)
+        {
+            this.FileLog.LogAppendTo = appendTo;
+        }
+
         public bool IsEnabled(LogEventLevel level)
         {
             if ((int)level < (int)RootConfig.MinimumLevel)
