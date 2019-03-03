@@ -35,10 +35,11 @@ Customize your logger behavior by changing source code or only changing the `Log
 Logging.Instance.LoadConfig();
 // or load config with specific file
 // Logging.Instance.LoadConfig("LogConfig.xml");
-Logging.Instance.FileLog.LogPath = "New.log";
-Logging.Instance.Information("Information");
-Logging.Instance.Debug("Debug");
-Logging.Instance.Error("Error");
+Logging.Logger.Instance.SetLogPath("New.log");
+Logging.Logger.Instance.SetLogAppendTo(true);
+Logging.Logger.Instance.Information("Information");
+Logging.Logger.Instance.Debug("Debug");
+Logging.Logger.Instance.Error("Error");
 ```
 
 
@@ -47,6 +48,7 @@ Logging.Instance.Error("Error");
 ```
 Logger::Instance()->LoadConfig();
 Logger::Instance()->SetLogPath("New.log");
+Logger::Instance()->SetLogAppendTo(true);
 Logger::Instance()->Information("Information");
 ```
 
