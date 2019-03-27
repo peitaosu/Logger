@@ -102,6 +102,24 @@ namespace Logging
             }
         }
 
+        public void EnableAppender(string appenderType, bool enable)
+        {
+            switch (appenderType)
+            {
+                case "FileAppender":
+                    FileLog.IsEnabled = enable;
+                    break;
+                case "ConsoleAppender":
+                    ConsoleLog.IsEnabled = enable;
+                    break;
+                case "ColoredConsoleAppender":
+                    ColoredConsoleLog.IsEnabled = enable;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public void SetLogPath(string log)
         {
             this.FileLog.LogPath = log;
