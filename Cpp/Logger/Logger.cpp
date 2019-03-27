@@ -41,6 +41,14 @@ void Logger::LoadConfig(std::string config) {
     }
 }
 
+void Logger::EnableAppender(std::string appenderType, bool enable) {
+    for (auto& appender : this->_config.GetLogAppenders()) {
+        if (appender.Type.compare(appenderType) == 0) {
+            appender.Enabled = enable;
+        }
+    }
+}
+
 void Logger::SetLogPath(std::string log) {
     this->_logPath = log;
 }
