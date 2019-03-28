@@ -26,6 +26,7 @@ public:
     static Logger* Instance();
     void LoadConfig();
     void LoadConfig(std::string config);
+    void EnableAppender(std::string appenderType);
     void EnableAppender(std::string appenderType, bool enable);
     void SetLogPath(std::string log);
     void SetLogAppendTo(bool appendTo);

@@ -102,7 +102,7 @@ namespace Logging
             }
         }
 
-        public void EnableAppender(string appenderType, bool enable)
+        public void EnableAppender(string appenderType, bool enable = true)
         {
             switch (appenderType)
             {
