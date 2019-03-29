@@ -13,6 +13,7 @@ namespace Sample
             Logging.Logger.Instance.LoadConfig();
             Logging.Logger.Instance.SetLogPath("New.log");
             Logging.Logger.Instance.SetLogAppendTo(true);
+            Logging.Logger.Instance.EnableAppender("ColoredConsoleAppender", true);
             Logging.Logger.Instance.Information("Information");
             Logging.Logger.Instance.Debug("Debug");
             Logging.Logger.Instance.Error("Error");

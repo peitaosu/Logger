@@ -12,6 +12,7 @@ int main()
     Logger::Instance()->LoadConfig();
     Logger::Instance()->SetLogPath("New.log");
     Logger::Instance()->SetLogAppendTo(true);
+    Logger::Instance()->EnableAppender("ConsoleAppender", false);
     Logger::Instance()->Information("Information");
     return 0;
 }

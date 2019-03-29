@@ -68,6 +68,7 @@ public:
     LogConfig();
     LogConfig(std::string config);
     ~LogConfig();
+    void UpdateLogAppenders(std::list<LogAppender> appenders);
     std::list<LogAppender> GetLogAppenders();
     LogRoot GetLogRoot();
 private:

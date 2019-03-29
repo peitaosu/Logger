@@ -64,6 +64,10 @@ LogConfig::~LogConfig(){
 
 }
 
+void LogConfig::UpdateLogAppenders(std::list<LogAppender> appenders) {
+    this->_logAppenders = appenders;
+}
+
 std::list<LogAppender> LogConfig::GetLogAppenders()
 {
     return this->_logAppenders;
