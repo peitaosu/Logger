@@ -37,6 +37,8 @@ Logging.Instance.LoadConfig();
 // Logging.Instance.LoadConfig("LogConfig.xml");
 Logging.Logger.Instance.SetLogPath("New.log");
 Logging.Logger.Instance.SetLogAppendTo(true);
+// change the enable status of appender
+Logging.Logger.Instance.EnableAppender("ColoredConsoleAppender", false);
 Logging.Logger.Instance.Information("Information");
 Logging.Logger.Instance.Debug("Debug");
 Logging.Logger.Instance.Error("Error");
@@ -49,6 +51,8 @@ Logging.Logger.Instance.Error("Error");
 Logger::Instance()->LoadConfig();
 Logger::Instance()->SetLogPath("New.log");
 Logger::Instance()->SetLogAppendTo(true);
+// change the enable status of appender
+Logger::Instance()->EnableAppender("ConsoleAppender", false);
 Logger::Instance()->Information("Information");
 ```
 
