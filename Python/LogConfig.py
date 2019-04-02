@@ -1,52 +1,46 @@
-class AppenderFile():
-    def __init__(self, Path, AppendTo):
-        self.Path = Path
-        self.AppendTo = AppendTo
-
-class AppenderPattern():
-    def __init__(self, Value):
-        self.Value = Value
-
-class AppenderColor():
-    def __init__(self, Level, ForeColor, BackColor):
-        self.Level = Level
-        self.ForeColor = ForeColor
-        self.BackColor = BackColor
-
-class LogAppender():
-    def __init__(self, Enabled, Name, Type, File, Pattern, Colors):
-        self.Enabled = Enabled
-        self.Name = Name
-        self.Type = Type
-        self.File = File
-        self.Pattern = Pattern
-        self.Colors = Colors
-
-class RootMinLevel():
-    def __init__(self, Value):
-        self.Value = Value
-
-
-class RootAppenderRef():
-    def __init__(self, Ref):
-        self.Ref = Ref
-
-class LogRoot():
-    def __init__(self, MinLevel, RootAppenderRefs):
-        self.MinLevel = MinLevel
-        self.RootAppenderRefs = RootAppenderRefs
+import xml.etree.ElementTree as ET
 
 class LogConfig():
-    def __init__(self):
-        self.config = None
-        self._logAppenders = []
-        self._logRoot = None
+    def __init__(self, config):
+        log_config = ET.parse(config).getroot()
+        self.config = {
+            "Appenders": {},
+            "Root": {
+                "MinLevel": "VERBO",
+                "AppenderRef": []
+            }
+        }
+        for child in log_config:
+            if child.tag is "Appender":
+                self.config["Appenders"][child.attrib["Name"]] = {}
+                self.config["Appenders"][child.attrib["Name"]]["Type"] = child.attrib["Type"]
+                self.config["Appenders"][child.attrib["Name"]]["File"] = {}
+                self.config["Appenders"][child.attrib["Name"]]["Enabled"] = False
+                self.config["Appenders"][child.attrib["Name"]]["Colors"] = {}
+                for config in child:
+                    if config.tag is "File":
+                        self.config["Appenders"][child.attrib["Name"]]["File"]["Path"] = config.attrib["Path"]
+                        self.config["Appenders"][child.attrib["Name"]]["File"]["AppendTo"] = config.attrib["AppendTo"]
+                    if config.tag is "Pattern":
+                        self.config["Appenders"][child.attrib["Name"]]["Pattern"] = config.attrib["Value"]
+                    if config.tag is "Color":
+                        self.config["Appenders"][child.attrib["Name"]]["Colors"][config.attrib["Level"]] = {
+                            "ForeColor": config.attrib.get("ForeColor", None),
+                            "BackColor": config.attrib.get("BackColor", None)
+                        }
+            if child.tag is "Root":
+                for config in child:
+                    if config.tag is "MinLevel":
+                        self.config["Root"]["MinLevel"] = config.attrib["Value"]
+                    if config.tag is "AppenderRef":
+                        self.config["Root"]["AppenderRef"].append(config.attrib["Ref"])
+                        self.config["Appenders"][child.attrib["Ref"]]["Enabled"] = True
     
     def UpdateLogAppenders(self, appenders):
-        self._logAppenders = appenders
+        self.config["Appenders"] = appenders
     
     def GetLogAppenders(self):
-        return self._logAppenders
+        return self.config["Appenders"]
     
     def GetLogRoot(self):
-        return self._logRoot
+        return self.config["Root"]
