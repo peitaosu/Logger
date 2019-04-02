@@ -10,11 +10,16 @@ class Logger():
         self._logPath = "Logger.log"
         self._appendTo = True
     
-    def LoadConfig(self, config):
-        pass
-    
+    def LoadConfig(self, config=None):
+        if not config:
+            config = self._defaultConfig
+        self._config = LogConfig(config)
+        self._minimalLevel = LogEventLevel[self._config.GetLogRoot()["MinLevel"]]
+
     def EnableAppender(self, appenderType, enable):
-        pass
+        for appender in self._config.GetLogAppenders():
+            if appender["Type"] == appenderType:
+                appender["Enabled"] = enable
     
     def SetLogPath(self, log):
         pass
@@ -23,7 +28,7 @@ class Logger():
         pass
     
     def IsEnabled(self, level):
-        if level < self._minimalLevel:
+        if level < self._minimalLevel.value:
             return False
         return True
     
