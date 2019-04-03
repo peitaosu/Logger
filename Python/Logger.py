@@ -22,10 +22,14 @@ class Logger():
                 appender["Enabled"] = enable
     
     def SetLogPath(self, log):
-        pass
-    
+        for appender in self._config.GetLogAppenders():
+            if appender["Type"] == "FileAppender":
+                appender["File"]["Path"] = log
+     
     def SetLogAppendTo(self, appendTo):
-        pass
+        for appender in self._config.GetLogAppenders():
+            if appender["Type"] == "FileAppender":
+                appender["File"]["AppendTo"] = appendTo
     
     def IsEnabled(self, level):
         if level < self._minimalLevel.value:
