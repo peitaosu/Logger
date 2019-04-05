@@ -13,3 +13,9 @@
 *.vcxproj.filters
 *.vcxproj.user
 ~*.vcxproj
+
+# Python
+*.pyc
+
+# Log
+*.log
