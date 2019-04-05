@@ -16,15 +16,15 @@ class Logger():
             config = self._defaultConfig
         self._config = LogConfig(config)
         self._minimalLevel = LogEventLevel[self._config.GetLogRoot()["MinLevel"]]
-        for appender in self._config.GetLogAppenders():
-            if appender["Type"] == "FileAppender":
-                self._logPath = appender["File"]["Path"]
-                self._appendTo = appender["File"]["AppendTo"] == "True"
+        for appender_name in self._config.GetLogAppenders():
+            if self._config.GetLogAppenders()[appender_name]["Type"] == "FileAppender":
+                self._logPath = self._config.GetLogAppenders()[appender_name]["File"]["Path"]
+                self._appendTo = self._config.GetLogAppenders()[appender_name]["File"]["AppendTo"] == "True"
 
     def EnableAppender(self, appenderType, enable):
-        for appender in self._config.GetLogAppenders():
-            if appender["Type"] == appenderType:
-                appender["Enabled"] = enable
+        for appender_name in self._config.GetLogAppenders():
+            if self._config.GetLogAppenders()[appender_name]["Type"] == appenderType:
+                self._config.GetLogAppenders()[appender_name]["Enabled"] = enable
     
     def SetLogPath(self, log):
         self._logPath = log
@@ -35,14 +35,18 @@ class Logger():
         self._appendTo = appendTo
     
     def IsEnabled(self, level):
-        if level < self._minimalLevel.value:
+        if level.value < self._minimalLevel.value:
             return False
         return True
     
     def Write(self, level, message, exception=None):
-        if not self.IsEnabled(level):
+        self.WriteImp(LogEvent(level, message, exception))
+    
+    def WriteImp(self, event):
+        if not self.IsEnabled(event.GetLevel()):
             return
-        for appender in self._config.GetLogAppenders():
+        for appender_name in self._config.GetLogAppenders():
+            appender = self._config.GetLogAppenders()[appender_name]
             if appender["Enabled"]:
                 if appender["Type"] == "FileAppender":
                     if not self._logFile:
@@ -50,11 +54,11 @@ class Logger():
                             self._logFile = open(self._logPath, "a+")
                         else:
                             self._logFile = open(self._logPath, "w+")
-                        self._logFile.write(appender["Pattern"].format(level, message, exception))
+                    self._logFile.write(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()) + "\n")
                 if appender["Type"] == "ConsoleAppender":
-                    print(appender["Pattern"].format(level, message, exception))
+                    print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
                 if appender["Type"] == "ColoredConsoleAppender":
-                    pass
+                    print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
     
     def Verbose(self, message, exception=None):
         self.Write(LogEventLevel.VERBO, message, exception)

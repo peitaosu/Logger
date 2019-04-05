@@ -9,30 +9,30 @@ class LogConfig():
             "AppenderRef": []
         }
         for child in log_config:
-            if child.tag is "Appender":
+            if child.tag == r"{http://Logger/LogConfig.xsd}Appender":
                 self.Appenders[child.attrib["Name"]] = {}
                 self.Appenders[child.attrib["Name"]]["Type"] = child.attrib["Type"]
                 self.Appenders[child.attrib["Name"]]["File"] = {}
                 self.Appenders[child.attrib["Name"]]["Enabled"] = False
                 self.Appenders[child.attrib["Name"]]["Colors"] = {}
                 for config in child:
-                    if config.tag is "File":
+                    if config.tag == r"{http://Logger/LogConfig.xsd}File":
                         self.Appenders[child.attrib["Name"]]["File"]["Path"] = config.attrib["Path"]
                         self.Appenders[child.attrib["Name"]]["File"]["AppendTo"] = config.attrib["AppendTo"]
-                    if config.tag is "Pattern":
+                    if config.tag == r"{http://Logger/LogConfig.xsd}Pattern":
                         self.Appenders[child.attrib["Name"]]["Pattern"] = config.attrib["Value"]
-                    if config.tag is "Color":
+                    if config.tag == r"{http://Logger/LogConfig.xsd}Color":
                         self.Appenders[child.attrib["Name"]]["Colors"][config.attrib["Level"]] = {
                             "ForeColor": config.attrib.get("ForeColor", None),
                             "BackColor": config.attrib.get("BackColor", None)
                         }
-            if child.tag is "Root":
+            if child.tag == r"{http://Logger/LogConfig.xsd}Root":
                 for config in child:
-                    if config.tag is "MinLevel":
+                    if config.tag == r"{http://Logger/LogConfig.xsd}MinLevel":
                         self.Root["MinLevel"] = config.attrib["Value"]
-                    if config.tag is "AppenderRef":
+                    if config.tag == r"{http://Logger/LogConfig.xsd}AppenderRef":
                         self.Root["AppenderRef"].append(config.attrib["Ref"])
-                        self.Appenders[child.attrib["Ref"]]["Enabled"] = True
+                        self.Appenders[config.attrib["Ref"]]["Enabled"] = True
     
     def UpdateLogAppenders(self, appenders):
         self.Appenders = appenders
