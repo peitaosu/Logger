@@ -55,11 +55,17 @@ class Logger():
                         else:
                             self._logFile = open(self._logPath, "w+")
                     self._logFile.write(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()) + "\n")
+                    if event.GetException():
+                        self._logFile.write(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetException()) + "\n")
                 if appender["Type"] == "ConsoleAppender":
                     print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
+                    if event.GetException():
+                        print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetException()))
                 if appender["Type"] == "ColoredConsoleAppender":
                     print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
-    
+                    if event.GetException():
+                        print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetException()))
+
     def Verbose(self, message, exception=None):
         self.Write(LogEventLevel.VERBO, message, exception)
 
