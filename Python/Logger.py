@@ -1,5 +1,6 @@
 from LogEvent import *
 from LogConfig import *
+from LogColor import *
 
 class Logger():
 
@@ -62,9 +63,16 @@ class Logger():
                     if event.GetException():
                         print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetException()))
                 if appender["Type"] == "ColoredConsoleAppender":
-                    print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
-                    if event.GetException():
-                        print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetException()))
+                    if event.GetLevel().name in appender["Colors"]:
+                        fore_color = appender["Colors"][event.GetLevel().name]["ForeColor"]
+                    if fore_color:
+                        print(LogColor[fore_color].value + appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()) + LogColor["ENDC"].value)
+                        if event.GetException():
+                            print(LogColor[fore_color].value + appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetException()) + LogColor["ENDC"].value)
+                    else:
+                        print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
+                        if event.GetException():
+                            print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetException()))
 
     def Verbose(self, message, exception=None):
         self.Write(LogEventLevel.VERBO, message, exception)

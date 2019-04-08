@@ -11,14 +11,14 @@
         <Pattern Value="{0}: [{1}] {2}"/>
     </Appender>
     <Appender Name="ColoredConsoleAppender" Type="ColoredConsoleAppender">
-        <Color Level="ERROR" ForeColor="Red"/>
-        <Color Level="DEBUG" ForeColor="Green"/>
-        <Color Level="INFOR" ForeColor="White"/>
+        <Color Level="ERROR" ForeColor="FAIL"/>
+        <Color Level="DEBUG" ForeColor="WARNING"/>
+        <Color Level="INFOR" ForeColor="OKGREEN"/>
         <Pattern Value="{0}: [{1}] {2}"/>
     </Appender>
     <Root>
         <MinLevel Value="VERBO" />
-        <AppenderRef Ref="ConsoleAppender" />
+        <AppenderRef Ref="ColoredConsoleAppender" />
         <AppenderRef Ref="FileAppender" />
     </Root>
 </Logger>
