@@ -11,9 +11,9 @@
         <Pattern Value="{0}: [{1}] {2}"/>
     </Appender>
     <Appender Name="ColoredConsoleAppender" Type="ColoredConsoleAppender">
-        <Color Level="ERROR" ForeColor="FAIL"/>
-        <Color Level="DEBUG" ForeColor="WARNING"/>
-        <Color Level="INFOR" ForeColor="OKGREEN"/>
+        <Color Level="ERROR" ForeColor="RED"/>
+        <Color Level="DEBUG" ForeColor="YELLOW"/>
+        <Color Level="INFOR" ForeColor="GREEN"/>
         <Pattern Value="{0}: [{1}] {2}"/>
     </Appender>
     <Root>
