@@ -13,6 +13,7 @@
 #include <regex>
 #include "LogEvent.h"
 #include "LogConfig.h"
+#include "LogColor.h"
 
 namespace Logging {
     class Logger;

@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="LogColor.h" />
     <ClInclude Include="LogEvent.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="LogConfig.h" />

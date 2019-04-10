@@ -144,8 +144,14 @@ void Logger::Write(LogEvent logEvent) {
             std::cout << log << std::endl;
         }
         else if (appender.Type == "ColoredConsoleAppender") {
-            //TODO: to implement the colored console output
-            std::cout << log << std::endl;
+            bool color_not_found = true;
+            for (auto& color : appender.Colors) {
+                if (color.Level == level && color.ForeColor != "") {
+                    std::cout << LogColor.find(color.ForeColor)->second << log << LogColor.find("ENDC")->second << std::endl;
+                    color_not_found = false;
+                }
+            }
+            if(color_not_found) std::cout << log << std::endl;
         }
     }
 }

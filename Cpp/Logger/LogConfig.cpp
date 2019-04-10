@@ -35,7 +35,7 @@ LogConfig::LogConfig(std::string config) {
                     AppenderColor color;
                     color.Level = appenderElement->Attribute("Level");
                     if (appenderElement->Attribute("ForeColor")) color.ForeColor = appenderElement->Attribute("ForeColor");
-                    if (appenderElement->Attribute("BackColor")) color.ForeColor = appenderElement->Attribute("BackColor");
+                    if (appenderElement->Attribute("BackColor")) color.BackColor = appenderElement->Attribute("BackColor");
                     appender.Colors.push_back(color);
                 }
             }
