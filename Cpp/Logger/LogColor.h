@@ -1,4 +1,8 @@
-#pragma once
+//---------------------------------------------------//
+//                    MIT License                    //
+// Copyright @ 2018-2019 Tony Su All Rights Reserved //
+//        https://github.com/peitaosu/Logger         //
+//---------------------------------------------------//
 
 #include <iostream>
 #include <map>
