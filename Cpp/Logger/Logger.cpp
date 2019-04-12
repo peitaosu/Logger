@@ -147,7 +147,7 @@ void Logger::Write(LogEvent logEvent) {
             bool color_not_found = true;
             for (auto& color : appender.Colors) {
                 if (color.Level == level && color.ForeColor != "") {
-                    std::cout << LogColor.find(color.ForeColor)->second << log << LogColor.find("ENDC")->second << std::endl;
+                    std::cout << this->_logColor.GetColorByName(color.ForeColor) << log << this->_logColor.GetColorByName("ENDC") << std::endl;
                     color_not_found = false;
                 }
             }

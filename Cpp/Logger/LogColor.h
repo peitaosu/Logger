@@ -7,8 +7,19 @@
 #include <iostream>
 #include <map>
 
-namespace {
-    std::map<std::string, std::string> LogColor = {
+namespace Logging {
+    class LogColor;
+}
+
+class LogColor {
+public:
+    LogColor();
+    ~LogColor();
+    void UpdateColorMap(std::map<std::string, std::string>);
+    std::string GetColorByName(std::string name);
+    
+private:
+    std::map<std::string, std::string> color_map = {
         {"PURPLE" , "\033[95m"},
         {"BLUE" , "\033[94m"},
         {"GREEN" , "\033[92m"},
@@ -16,4 +27,7 @@ namespace {
         {"RED" , "\033[91m"},
         {"ENDC" , "\033[0m"}
     };
-}
+};
+
+
+

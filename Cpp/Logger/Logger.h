@@ -55,5 +55,6 @@ private:
     std::string _defaultConfig = "LogConfig.xml";
     std::string _logPath = "Logger.log";
     bool _appendTo = true;
+    LogColor _logColor = LogColor();
 };
 

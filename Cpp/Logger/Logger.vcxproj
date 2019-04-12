@@ -151,6 +151,7 @@
     <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LogColor.cpp" />
     <ClCompile Include="LogEvent.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LogConfig.cpp" />
