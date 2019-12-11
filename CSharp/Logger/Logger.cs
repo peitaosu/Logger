@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace Logging
 {
@@ -19,6 +18,7 @@ namespace Logging
         private static readonly object _sync = new object();
         private StreamWriter _fileWriter;
         private string _defaultConfig = "LogConfig.xml";
+        private string _config = null;
 
         public Logger(){}
 
@@ -38,6 +38,7 @@ namespace Logging
             }
             else
             {
+                this._config = config;
                 _logConfig.Load(config);
             }
             List<string> refedAppenders = new List<string>();
@@ -100,6 +101,23 @@ namespace Logging
                 }
                 return _logger;
             }
+        }
+
+        public bool ValidateSchema(string xsdPath)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.Load(this._config);
+            xml.Schemas.Add(null, xsdPath);
+
+            try
+            {
+                xml.Validate(null);
+            }
+            catch (XmlSchemaValidationException)
+            {
+                throw;
+            }
+            return true;
         }
 
         public void EnableAppender(string appenderType, bool enable = true)
