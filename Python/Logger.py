@@ -20,7 +20,7 @@ class Logger():
         for appender_name in self._config.GetLogAppenders():
             if self._config.GetLogAppenders()[appender_name]["Type"] == "FileAppender":
                 self._logPath = self._config.GetLogAppenders()[appender_name]["File"]["Path"]
-                self._appendTo = self._config.GetLogAppenders()[appender_name]["File"]["AppendTo"] == "True"
+                self._appendTo = self._config.GetLogAppenders()[appender_name]["File"]["AppendTo"] == "true"
 
     def EnableAppender(self, appenderType, enable):
         for appender_name in self._config.GetLogAppenders():
