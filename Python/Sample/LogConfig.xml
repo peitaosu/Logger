@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Logger xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://Logger/LogConfig.xsd">
+    xmlns="http://Logger/LogConfig.xsd" xsi:type="LogConfig"
+    >
 
     <Appender Name="FileAppender" Type="FileAppender">
-        <File Path="Logger.log" AppendTo="true"/>
+        <File Path="Logger.log" AppendTo="True"/>
         <Pattern Value="{0}: [{1}] {2}"/>
     </Appender>
     <Appender Name="ConsoleAppender" Type="ConsoleAppender">
         <Pattern Value="{0}: [{1}] {2}"/>
     </Appender>
     <Appender Name="ColoredConsoleAppender" Type="ColoredConsoleAppender">
-        <Color Level="ERROR" ForeColor="Red"/>
-        <Color Level="DEBUG" ForeColor="Yellow"/>
-        <Color Level="INFOR" ForeColor="Green"/>
+        <Color Level="ERROR" ForeColor="RED"/>
+        <Color Level="DEBUG" ForeColor="YELLOW"/>
+        <Color Level="INFOR" ForeColor="GREEN"/>
         <Pattern Value="{0}: [{1}] {2}"/>
     </Appender>
     <Root>
