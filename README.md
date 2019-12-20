@@ -1,7 +1,7 @@
 # Simple Logger
 [![GitHub license](https://img.shields.io/github/license/peitaosu/Logger.svg)](https://github.com/peitaosu/Logger/blob/master/LICENSE)
 
-Simple implementation of Logger. Now there are several languages supported: C#, C++ and Python.
+Simple implementation of Logger. Now there are several languages implementations: C#, C++ and Python.
 
 ## LogConfig.xml
 
