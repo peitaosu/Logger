@@ -46,12 +46,7 @@ void Logger::Write(LogEvent logEvent) {
         std::ostringstream time_string;
         time_string << std::put_time(&logEvent.GetTimestamp(), "%Y/%m/%d %H:%M:%S");
         log = time_string.str() + ": [" + level + "] " + logEvent.GetMessage();
-
-        int mode = std::ios::out;
-        if (this->_appendTo)
-        {
-                mode += std::ios::app;
-        }
+        int mode = std::ios::out + std::ios::app;
         std::ofstream file(this->_logPath, mode);
         file << log + "\n";
         file.close();
