@@ -7,10 +7,6 @@
 #include <chrono>
 
 namespace Logging {
-    class Logger;
-    class LogEvent;
-    enum LogEventLevel;
-}
 
 enum LogEventLevel
 {
@@ -58,3 +54,4 @@ private:
     std::string _logPath = "Logger.log";
 };
 
+}
