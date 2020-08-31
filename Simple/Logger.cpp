@@ -1,5 +1,7 @@
 #include "Logger.h"
 
+namespace Logging {
+
 LogEvent::LogEvent() {
 }
 
@@ -107,3 +109,4 @@ void Logger::Fatal(std::string message) {
 
 Logger* Logger::_logger = nullptr;
 
+}
