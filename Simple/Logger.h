@@ -1,3 +1,9 @@
+//---------------------------------------------------//
+//                    MIT License                    //
+// Copyright @ 2018-2020 Tony Su All Rights Reserved //
+//        https://github.com/peitaosu/Logger         //
+//---------------------------------------------------//
+
 #include <iostream>
 #include <string>
 #include <fstream>
