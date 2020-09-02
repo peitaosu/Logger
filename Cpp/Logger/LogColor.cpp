@@ -22,5 +22,7 @@ void LogColor::UpdateColorMap(std::map<std::string, std::string> new_map)
 
 std::string LogColor::GetColorByName(std::string name)
 {
-    return this->color_map.find(name)->second;
+    if(this->color_map.find(name) != this->color_map.end())
+        return this->color_map.find(name)->second;
+    return return this->color_map.find("GREEN")->second;
 }
