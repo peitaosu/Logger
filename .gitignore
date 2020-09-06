@@ -8,6 +8,9 @@
 # Visual Studio
 \.vs
 
+# Visual Studio Code
+\.vscode
+
 # Visual C++
 *.VC.*
 *.vcxproj.filters
