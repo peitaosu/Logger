@@ -24,5 +24,5 @@ std::string LogColor::GetColorByName(std::string name)
 {
     if(this->color_map.find(name) != this->color_map.end())
         return this->color_map.find(name)->second;
-    return return this->color_map..begin()->second;
+    return this->color_map.begin()->second;
 }
