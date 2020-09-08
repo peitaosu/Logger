@@ -47,6 +47,7 @@ public:
     void Error(std::string message, LogEventException exception);
     void Fatal(std::string message);
     void Fatal(std::string message, LogEventException exception);
+    std::string StringFormat(std::string format, ...);
 
 private:
     static Logger* _logger;

@@ -215,5 +215,10 @@ void Logger::Fatal(std::string message, LogEventException exception) {
     Write(LogEventLevel::FATAL, message, exception);
 }
 
+std::string Logger::StringFormat(std::string format, ...)
+{
+    return format;
+}
+
 Logger* Logger::_logger = nullptr;
 
