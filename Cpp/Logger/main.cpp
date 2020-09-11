@@ -4,7 +4,6 @@
 //        https://github.com/peitaosu/Logger         //
 //---------------------------------------------------//
 
-#include "stdafx.h"
 #include "Logger.h"
 
 int main()
