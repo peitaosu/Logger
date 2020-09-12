@@ -9,8 +9,10 @@ def XMLValidate(xml_path, xsd_path):
     parser = objectify.makeparser(schema=schema)
     try:
         objectify.fromstring(in_xml, parser)
+        return True
     except etree.XMLSyntaxError as err:
         print(err.error_log)
+        return False
 
 if __name__=="__main__":
     XMLValidate(sys.argv[1], sys.argv[2])
