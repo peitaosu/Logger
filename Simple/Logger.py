@@ -28,9 +28,7 @@ class LogEvent():
 class Logger():
 
     def __init__(self):
-        self._minimalLevel = LogEventLevel.VERBO
         self._logPath = "Logger.log"
-        self._appendTo = True
         self._logFile = None
     
     def SetLogPath(self, log):
@@ -41,10 +39,7 @@ class Logger():
     
     def WriteImp(self, event):
         if not self._logFile:
-            if self._appendTo:
-                self._logFile = open(self._logPath, "a+")
-            else:
-                self._logFile = open(self._logPath, "w+")
+            self._logFile = open(self._logPath, "a+")
         self._logFile.write(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()) + "\n")
         print(appender["Pattern"].format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
 
