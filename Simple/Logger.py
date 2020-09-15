@@ -30,6 +30,7 @@ class Logger():
     def __init__(self):
         self._logPath = "Logger.log"
         self._logFile = None
+        self._logFormat = "{%Y/%m/%d %H:%M:%S}: [{1}] {2}"
     
     def SetLogPath(self, log):
         self._logPath = log
@@ -40,8 +41,8 @@ class Logger():
     def WriteImp(self, event):
         if not self._logFile:
             self._logFile = open(self._logPath, "a+")
-        self._logFile.write("{%Y/%m/%d %H:%M:%S}: [{1}] {2}".format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()) + "\n")
-        print("{%Y/%m/%d %H:%M:%S}: [{1}] {2}".format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
+        self._logFile.write(self._logFormat.format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()) + "\n")
+        print(self._logFormat.format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
 
     def Verbose(self, message):
         self.Write(LogEventLevel.VERBO, message)
