@@ -85,9 +85,7 @@ namespace Logging
 
         public void Debug(string message)
         {
-#if DEBUG
             Write(LogEventLevel.DEBUG, message);
-#endif
         }
 
         public void Information(string message)
