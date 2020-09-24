@@ -39,10 +39,11 @@ class Logger():
         self.WriteImp(LogEvent(level, message))
     
     def WriteImp(self, event):
+        log_string = self._logFormat.format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage())
         if not self._logFile:
             self._logFile = open(self._logPath, "a+")
-        self._logFile.write(self._logFormat.format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()) + "\n")
-        print(self._logFormat.format(event.GetTimestamp(), event.GetLevel().name, event.GetMessage()))
+        self._logFile.write(log_string + "\n")
+        print(log_string)
 
     def Verbose(self, message):
         self.Write(LogEventLevel.VERBO, message)
