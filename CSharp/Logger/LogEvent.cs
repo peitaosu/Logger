@@ -9,9 +9,9 @@ namespace Logging
 {
     public class LogEvent
     {
-        public LogEvent(DateTimeOffset timestamp, LogEventLevel level, string message, Exception exception = null)
+        public LogEvent(LogEventLevel level, string message, Exception exception = null)
         {
-            Timestamp = timestamp;
+            Timestamp = DateTimeOffset.Now;
             Level = level;
             Message = message;
             Exception = exception;

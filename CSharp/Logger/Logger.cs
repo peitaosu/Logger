@@ -203,7 +203,7 @@ namespace Logging
         public void Write(LogEventLevel level, string message, Exception exception = null)
         {
             if (IsEnabled(level))
-                Write(new LogEvent(DateTimeOffset.Now, level, message, exception));
+                Write(new LogEvent(level, message, exception));
         }
 
         public void Verbose(string message, Exception exception = null)

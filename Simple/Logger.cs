@@ -6,9 +6,9 @@ namespace Logging
 {
     public class LogEvent
     {
-        public LogEvent(DateTimeOffset timestamp, LogEventLevel level, string message)
+        public LogEvent(LogEventLevel level, string message)
         {
-            Timestamp = timestamp;
+            Timestamp = DateTimeOffset.Now;
             Level = level;
             Message = message;
         }
@@ -73,7 +73,7 @@ namespace Logging
         public void Write(LogEventLevel level, string message)
         {
             if (IsEnabled(level))
-                Write(new LogEvent(DateTimeOffset.Now, level, message));
+                Write(new LogEvent(level, message));
         }
 
         public void Verbose(string message)
