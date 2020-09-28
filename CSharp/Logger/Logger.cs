@@ -6,7 +6,7 @@ using System.Xml.Schema;
 
 namespace Logging
 {
-    public class Logger : ILogger
+    public class Logger
     {
         public LogAppenderConfig FileLog = new LogAppenderConfig();
         public LogAppenderConfig ConsoleLog = new LogAppenderConfig();

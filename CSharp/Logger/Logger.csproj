@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILogger.cs" />
     <Compile Include="LogConfig.cs" />
     <Compile Include="LogEvent.cs" />
     <Compile Include="Logger.cs" />
