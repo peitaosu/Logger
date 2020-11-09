@@ -79,7 +79,7 @@ void Logger::Write(LogEvent logEvent) {
         case LogEventLevel::VERBO:
             level = "VERBO";
             break;
-        case LogEventLevel::DEBUG:
+        case LogEventLevel::_DEBUG_:
             level = "DEBUG";
             break;
         case LogEventLevel::INFOR:

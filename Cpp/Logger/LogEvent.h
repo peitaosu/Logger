@@ -17,7 +17,7 @@ namespace Logging {
 enum LogEventLevel
 {
     VERBO,
-    DEBUG,
+    _DEBUG_,
     INFOR,
     WARNN,
     ERROR,
